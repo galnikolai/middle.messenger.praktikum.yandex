@@ -1,24 +1,13 @@
-import './style.css'
-import javascriptLogo from './javascript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.js'
+import "./style.css";
+import "./src/pages/chats/chats.css";
+import "./src/pages/errors/errors.css";
+import "./src/pages/settings/profile/profile.css";
+import "./src/pages/settings/password/password.css";
+import "./src/pages/login/login.css";
+import "./src/pages/signin/signin.css";
 
-document.querySelector('#app').innerHTML = `
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
-      <img src="${javascriptLogo}" class="logo vanilla" alt="JavaScript logo" />
-    </a>
-    <h1>Hello Vite!</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite logo to learn more
-    </p>
-  </div>
-`
+import { router } from "./src/router";
 
-setupCounter(document.querySelector('#counter'))
+document.addEventListener("DOMContentLoaded", () => {
+  router();
+});

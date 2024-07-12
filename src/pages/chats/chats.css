@@ -1,0 +1,139 @@
+.chat-container {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  width: 25%;
+  background-color: var(--sidebar-bg-color);
+  border-right: 1px solid var(--base-light);
+  display: flex;
+  flex-direction: column;
+}
+
+.search-bar {
+  padding: 10px;
+  border-bottom: 1px solid var(--base-light);
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid var(--base-light);
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.chat-list {
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+.chat-item {
+  padding: 15px;
+  border-bottom: 1px solid var(--base-light);
+  cursor: pointer;
+}
+
+.chat-item.active {
+  background-color: var(--active-chat-bg-color);
+}
+
+.chat-item:hover {
+  background-color: var(--active-chat-bg-color);
+}
+
+.chat-name {
+  font-weight: bold;
+  display: block;
+}
+
+.chat-last-message {
+  color: #888;
+}
+
+.chat-content {
+  width: 75%;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-header {
+  padding: 15px;
+  background-color: var(--chat-header-bg-color);
+  border-bottom: 1px solid var(--base-light);
+}
+
+.chat-title {
+  font-size: 20px;
+}
+
+.chat-messages {
+  flex-grow: 1;
+  padding: 15px;
+  overflow-y: auto;
+  background-color: var(--chat-bg-color);
+  display: flex;
+  flex-flow: column;
+}
+
+.message {
+  margin-bottom: 20px;
+  max-width: 60%;
+}
+
+.message.received {
+  align-self: flex-start;
+  background-color: #f1f1f1;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.message.sent {
+  align-self: flex-end;
+  color: var(--base-dark);
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.message img {
+  max-width: 100%;
+  margin-top: 10px;
+}
+
+.chat-input {
+  display: flex;
+  padding: 10px;
+  border-top: 1px solid var(--base-light);
+}
+
+.chat-input input {
+  flex-grow: 1;
+  padding: 10px;
+  border: 1px solid var(--base-light);
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+.chat-input button {
+  padding: 10px 20px;
+  background-color: var(--blue);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.chat-input button:hover {
+  background-color: darken(var(--primary-color), 10%);
+}
+
+.profile-link {
+  text-align: end;
+  padding: 20px 10px;
+  color: var(--base);
+  text-decoration: none;
+  color: var(--base);
+  text-decoration: none;
+  font-weight: 800;
+}
