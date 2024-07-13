@@ -13,8 +13,8 @@ export default defineConfig({
     rollupOptions: {
       input: {
         index: resolve(__dirname, "./src/index.html"),
-        signin: resolve(__dirname, "./src/pages/signin/signin.html"),
-        login: resolve(__dirname, "./src/pages/login/login.html"),
+        signin: resolve(__dirname, "./src/pages/auth/signin.html"),
+        login: resolve(__dirname, "./src/pages/auth/login.html"),
         404: resolve(__dirname, "./src/pages/errors/404.html"),
         500: resolve(__dirname, "./src/pages/errors/500.html"),
         profile: resolve(
