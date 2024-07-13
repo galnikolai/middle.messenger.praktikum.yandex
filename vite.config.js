@@ -2,6 +2,7 @@ import { defineConfig } from "vite";
 import handlebars from "vite-plugin-handlebars";
 
 export default defineConfig({
+  root: "src",
   build: {
     outDir: "dist",
     emptyOutDir: true,
@@ -19,10 +20,10 @@ export default defineConfig({
     },
   },
   server: {
-    port: 3000,
+    port: 4000,
   },
   preview: {
-    port: 4000,
+    port: 3000,
   },
   plugins: [
     handlebars({
