@@ -1,29 +1,27 @@
+import { resolve } from "path";
 import { defineConfig } from "vite";
 import handlebars from "vite-plugin-handlebars";
 
+const root = resolve(__dirname, "src");
+const outDir = resolve(__dirname, "dist");
+
 export default defineConfig({
-  root: "src",
+  root,
   build: {
-    outDir: "dist",
+    outDir,
     emptyOutDir: true,
     rollupOptions: {
       input: {
-        index: "index.html",
-        signin: "src/pages/signin/signin.html",
-        login: "src/pages/login/login.html",
-        404: "src/pages/errors/404.html",
-        500: "src/pages/errors/500.html",
-        profile: "src/pages/settings/profile/profile.html",
-        password: "/src/pages/settings/password/password.html",
-        chats: "src/pages/chats/chats.html",
+        main: resolve("index.html"),
+        signin: resolve("src/pages/signin/signin.html"),
+        login: resolve("src/pages/login/login.html"),
+        404: resolve("src/pages/errors/404.html"),
+        500: resolve("src/pages/errors/500.html"),
+        profile: resolve("src/pages/settings/profile/profile.html"),
+        password: resolve("/src/pages/settings/password/password.html"),
+        chats: resolve("src/pages/chats/chats.html"),
       },
     },
-  },
-  server: {
-    port: 4000,
-  },
-  preview: {
-    port: 3000,
   },
   plugins: [
     handlebars({
