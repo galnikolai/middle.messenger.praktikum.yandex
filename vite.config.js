@@ -18,6 +18,12 @@ export default defineConfig({
       },
     },
   },
+  server: {
+    port: 4000,
+  },
+  preview: {
+    port: 3000,
+  },
   plugins: [
     handlebars({
       context: {
