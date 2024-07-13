@@ -11,26 +11,12 @@
         <h1>{{signin}}</h1>
         <form action="/pages/chats/chats">
           <label for="login">{{login}}</label>
-          <input
-            type="text"
-            id="login"
-            name="login"
-            value="ivanivanov"
-            required
-          />
+          <input type="text" id="login" name="login" value="ivanivanov" required />
 
           <label for="password">{{password}}</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value="*********"
-            required
-          />
+          <input type="password" id="password" name="password" value="*********" required />
 
-          <button type="submit" onclick="location.href='/chats';">
-            {{signin}}
-          </button>
+          <button type="submit" onclick="location.href='/chats';"> {{signin}} </button>
         </form>
         <a href="/pages/auth/signin" class="register-link">{{haveNoProfile}}</a>
       </div>
