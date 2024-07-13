@@ -28,14 +28,14 @@ Usage
 
 #### Pages:
 
-- Sign in http://localhost:3000/signin
-- Login http://localhost:3000/login
-- Profile settings http://localhost:3000/settings/profile
-- Change password http://localhost:3000/settings/password
-- Chats http://localhost:3000/chats
+- Sign in http://localhost:3000/pages/auth/signin
+- Login http://localhost:3000/pages/auth/login
+- Profile settings http://localhost:3000/pages/settings/profile/profile
+- Change password http://localhost:3000/pages/settings/password/password
+- Chats http://localhost:3000/pages/chats/chats
 
-- 404 http://localhost:3000/404
-- 500 http://localhost:3000/500
+- 404 http://localhost:3000/pages/errors/404
+- 500 http://localhost:3000/pages/errors/500
 
 ##### Usefull links
 
