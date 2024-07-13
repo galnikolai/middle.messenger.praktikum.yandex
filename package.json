@@ -6,8 +6,8 @@
   "scripts": {
     "dev": "vite --port 3000",
     "build": "vite build && npm run build:css",
-    "start": "vite build && npm run build:css && vite preview"
-
+    "start": "vite build && npm run build:css && vite preview",
+    "build:css": "src/styles/main.css -o dist/css/main.css"
   },
   "devDependencies": {
     "vite": "^5.3.1"
