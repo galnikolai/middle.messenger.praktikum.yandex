@@ -2,6 +2,22 @@ import { defineConfig } from "vite";
 import handlebars from "vite-plugin-handlebars";
 
 export default defineConfig({
+  build: {
+    outDir: "dist",
+    emptyOutDir: true,
+    rollupOptions: {
+      input: {
+        index: "index.html",
+        signin: "src/pages/signin/signin.html",
+        login: "src/pages/login/login.html",
+        404: "src/pages/errors/404.html",
+        500: "src/pages/errors/500.html",
+        profile: "src/pages/settings/profile/profile.html",
+        password: "/src/pages/settings/password/password.html",
+        chats: "src/pages/chats/chats.html",
+      },
+    },
+  },
   plugins: [
     handlebars({
       context: {
