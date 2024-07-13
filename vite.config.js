@@ -47,6 +47,7 @@ export default defineConfig({
         signup: "Sign up",
         haveNoProfile: "Have no profile?",
         profile: "Profile",
+        chats: "Chats",
         internalServerError: "Internal Server Error",
         pageNotFound: "Page no found",
         backToChats: "Back to chats",
