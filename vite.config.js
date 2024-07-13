@@ -12,13 +12,13 @@ export default defineConfig({
     emptyOutDir: true,
     rollupOptions: {
       input: {
-        main: resolve("index.html"),
+        main: resolve("src/index.html"),
         signin: resolve("src/pages/signin/signin.html"),
         login: resolve("src/pages/login/login.html"),
         404: resolve("src/pages/errors/404.html"),
         500: resolve("src/pages/errors/500.html"),
         profile: resolve("src/pages/settings/profile/profile.html"),
-        password: resolve("/src/pages/settings/password/password.html"),
+        password: resolve("src/pages/settings/password/password.html"),
         chats: resolve("src/pages/chats/chats.html"),
       },
     },
