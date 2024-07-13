@@ -6,8 +6,8 @@
   "scripts": {
     "dev": "vite --port 3000",
     "build": "vite build",
-    "preview": "vite preview",
-    "start": "npm run build && npm run preview"
+    "preview": "vite preview --port 3000",
+    "start": "npm run build && npm run preview "
   },
   "devDependencies": {
     "less": "^4.2.0",
