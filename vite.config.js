@@ -12,17 +12,20 @@ export default defineConfig({
     emptyOutDir: true,
     rollupOptions: {
       input: {
-        main: resolve(__dirname, "src/index.html"),
-        signin: resolve(__dirname, "src/pages/signin/signin.html"),
-        login: resolve(__dirname, "src/pages/login/login.html"),
-        404: resolve(__dirname, "src/pages/errors/404.html"),
-        500: resolve(__dirname, "src/pages/errors/500.html"),
-        profile: resolve(__dirname, "src/pages/settings/profile/profile.html"),
+        index: resolve(__dirname, "./src/index.html"),
+        signin: resolve(__dirname, "./src/pages/signin/signin.html"),
+        login: resolve(__dirname, "./src/pages/login/login.html"),
+        404: resolve(__dirname, "./src/pages/errors/404.html"),
+        500: resolve(__dirname, "./src/pages/errors/500.html"),
+        profile: resolve(
+          __dirname,
+          "./src/pages/settings/profile/profile.html"
+        ),
         password: resolve(
           __dirname,
-          "src/pages/settings/password/password.html"
+          "./src/pages/settings/password/password.html"
         ),
-        chats: resolve(__dirname, "src/pages/chats/chats.html"),
+        chats: resolve(__dirname, "./src/pages/chats/chats.html"),
       },
     },
   },
