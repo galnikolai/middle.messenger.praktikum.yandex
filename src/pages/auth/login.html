@@ -1,0 +1,25 @@
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./auth.less" />
+    <title>{{profile}}</title>
+  </head>
+  <body>
+    <main class="container">
+      <div>
+        <h1>{{signin}}</h1>
+        <form action="/pages/chats/chats">
+          <label for="login">{{login}}</label>
+          <input type="text" id="login" name="login" value="ivanivanov" required />
+
+          <label for="password">{{password}}</label>
+          <input type="password" id="password" name="password" value="*********" required />
+
+          <button type="submit" onclick="location.href='/chats';"> {{signin}} </button>
+        </form>
+        <a href="/pages/auth/signin" class="register-link">{{haveNoProfile}}</a>
+      </div>
+    </main>
+  </body>
+</html>

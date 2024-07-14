@@ -1,0 +1,43 @@
+@import url(../../styles/styles.less);
+
+
+.error-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  background-image: -webkit-repeating-radial-gradient(
+    center center,
+    rgba(0, 0, 0, 0.1),
+    rgba(0, 0, 0, 0) 2px,
+    transparent 1px,
+    transparent 100%
+  );
+  background-size: 20px 20px;
+
+  .error-box {
+    display: flex;
+    flex-flow: column;
+    text-align: center;
+    padding: 20px;
+    background-color: var(--white);
+    border-radius: 14px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 600px;
+    height: 320px;
+    justify-content: center;
+  }
+  .refresh-link {
+    font-size: 16px;
+    font-weight: 900;
+    color: var(--base-dark);
+    text-decoration: underline;
+    border-bottom: 1px solid var(--link-color);
+  }
+
+  .refresh-link:hover {
+    color: var(--link-hover-color);
+    border-bottom: 1px solid var(--link-hover-color);
+  }
+}
