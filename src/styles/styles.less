@@ -2,18 +2,15 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
   color-scheme: light dark;
-
   background-color: #242424;
-
   font-synthesis: none;
-  text-rendering: optimizeLegibility;
+  text-rendering: 'optimizeLegibility';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  --base: #999999;
-  --base-dark: #333333;
+  --base: #999;
+  --base-dark: #333;
   --blue: #2196f3;
   --red-light: #ff6f61;
   --red-dark: #b94513;
@@ -31,11 +28,9 @@ body {
   min-width: 320px;
   min-height: 100vh;
   font-family: Arial, sans-serif;
-  display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  margin: 0;
   background-color: #f5f5f5;
   color: var(--base-dark);
 }
@@ -45,7 +40,6 @@ body {
   height: 100%;
   width: 100%;
 }
-/* styles.css */
 
 h1 {
   font-size: 128px;
@@ -72,6 +66,7 @@ p {
   form {
     display: flex;
     flex-direction: column;
+    margin-bottom: 0;
   }
 
   input {
@@ -96,20 +91,11 @@ p {
 
   button {
     width: 100%;
-    padding: 10px;
     background-color: var(--blue);
     color: var(--white);
     border: none;
     border-radius: 5px;
-    font-size: 1em;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 800;
     padding: var(--input-padding);
-    background-color: var(--blue);
-    border: none;
-    border-radius: 5px;
-    color: var(--white);
     cursor: pointer;
     font-size: 16px;
     font-weight: 800;

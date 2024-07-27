@@ -6,42 +6,7 @@
     <title>{{profile}}</title>
   </head>
   <body>
-    <main class="container">
-      <div class="profile">
-        <div class="profile-pic">
-          <img src="profile-placeholder.png" alt="Profile Picture" />
-        </div>
-        <form action="/pages/chats/chats">
-          <label for="email">{{email}}</label>
-          <input type="email" id="email" name="email" value="pochta@yandex.ru" required />
-
-          <label for="login">{{login}}</label>
-          <input type="text" id="login" name="login" value="ivanivanov" required />
-
-          <label for="first_name">{{name}}</label>
-          <input type="text" id="first_name" name="first_name" value="Name" required />
-
-          <label for="second_name">{{surname}}</label>
-          <input type="text" id="second_name" name="second_name" value="Ivanov" required />
-
-          <label for="phone">{{phoneNumber}}</label>
-          <input type="tel" id="phone" name="phone" value="+7 (909) 967 30 30" required />
-
-          <label for="display_name">{{nickname}}</label>
-          <input type="text" id="display_name" name="display_name" value="Vano" required />
-
-          <button type="submit" class="save-changes">{{saveChanges}}</button>
-          <button
-            onclick="location.href='/pages/settings/password/password';"
-            type="button"
-            class="change-password"
-          >
-            {{changePassword}}
-          </button>
-        </form>
-        <a href="/pages/auth/login" class="logout">{{logout}}</a>
-        <a href="/pages/chats/chats" class="back">{{backToChats}}</a>
-      </div>
-    </main>
+    <script type="module" src="./index.ts"></script>
+    <div class="app container"></div>
   </body>
 </html>
