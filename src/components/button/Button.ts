@@ -8,8 +8,6 @@ export default class Button extends Block {
   }
 
   render() {
-    const { text, __id } = this.props
-
     return this.compile(template, this.props)
   }
 }

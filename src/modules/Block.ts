@@ -11,10 +11,6 @@ interface BlockProps {
   [key: string]: any
 }
 
-function isHTMLTemplateElement(element: HTMLElement): element is HTMLTemplateElement {
-  return element instanceof HTMLTemplateElement
-}
-
 // Нельзя создавать экземпляр данного класса
 class Block {
   private _meta: Meta
@@ -94,15 +90,15 @@ class Block {
     this.componentDidMount()
   }
 
-  protected componentDidMount(oldProps?: BlockProps) {}
+  protected componentDidMount() {} // oldProps?: BlockProps
 
   protected dispatchComponentDidMount() {
     this._eventBus.emit(Block.EVENTS.FLOW_CDM)
   }
 
-  private _componentDidUpdate(oldProps: BlockProps, newProps: BlockProps): boolean {
-    return true
-  }
+  // private _componentDidUpdate(oldProps: BlockProps, newProps: BlockProps): boolean {
+  //   return true
+  // }
 
   compile(
     template: string,
@@ -127,7 +123,7 @@ class Block {
     )
 
     Object.entries(this.lists).forEach(
-      ([key, child]: [
+      ([key]: [
         key: string,
         child: {
           [key: string]: {
@@ -190,9 +186,9 @@ class Block {
     })
   }
 
-  componentDidUpdate(oldProps: BlockProps, newProps: BlockProps) {
-    return true
-  }
+  // componentDidUpdate(oldProps: BlockProps, newProps: BlockProps) {
+  //   return true
+  // }
 
   setProps = (nextProps: any) => {
     if (!nextProps) {

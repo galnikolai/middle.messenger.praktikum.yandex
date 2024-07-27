@@ -1,6 +1,4 @@
-import { template } from './template'
 import Block from '../../modules/Block'
-import Input from '../input/Input'
 
 export default class Form extends Block {
   constructor(props: any) {
@@ -10,14 +8,6 @@ export default class Form extends Block {
   }
 
   render() {
-    const { fields, __id } = this.props
-
-    console.log(fields)
-    return this.compile('{{{fields}}}', {
-      ...this.props,
-      //   fields: fields.map((element) => {
-      //     return new Input(element)
-      //   }),
-    })
+    return this.compile('{{{fields}}}', this.props)
   }
 }

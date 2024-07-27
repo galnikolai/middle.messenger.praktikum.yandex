@@ -8,8 +8,6 @@ export default class Input extends Block {
   }
 
   render() {
-    const { text, __id } = this.props
-
     return this.compile(template, this.props)
   }
 }
