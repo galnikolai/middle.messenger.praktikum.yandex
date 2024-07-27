@@ -1,9 +1,9 @@
 import Block from '../../modules/Block'
 import { template } from './template'
 
-export default class Chats extends Block {
+export default class Auth extends Block {
   constructor(props: any) {
-    super('main', props)
+    super('div', props)
   }
 
   render() {

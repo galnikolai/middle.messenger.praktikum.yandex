@@ -5,9 +5,9 @@ import handlebars from 'vite-plugin-handlebars'
 const root = resolve(__dirname, 'src')
 const outDir = resolve(__dirname, 'dist')
 const index = resolve(__dirname, './src/index.html')
-const login = resolve(__dirname, './src/pages/auth/login.html')
-// const chats = resolve(__dirname, './src/pages/chats/chats.html')
-const signin = resolve(__dirname, './src/pages/auth/signin.html')
+const login = resolve(__dirname, './src/pages/auth/login/login.html')
+const chats = resolve(__dirname, './src/pages/chats/chats.html')
+const signin = resolve(__dirname, './src/pages/auth/signin/signin.html')
 const profile = resolve(__dirname, './src/pages/settings/profile/profile.html')
 const password = resolve(__dirname, './src/pages/settings/password/password.html')
 
@@ -21,7 +21,7 @@ export default defineConfig({
         index,
         signin,
         login,
-        // chats,
+        chats,
         profile,
         password,
         404: resolve(__dirname, './src/pages/errors/404.html'),
