@@ -24,7 +24,7 @@ function queryStringify(data: { [key: string]: string }) {
   return (
     '?' +
     Object.keys(data)
-      .map((key, i) => {
+      .map((key) => {
         return `${key}=${data[key]}`
       })
       .join('&')
