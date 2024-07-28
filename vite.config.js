@@ -2,30 +2,21 @@ import { resolve } from 'path'
 import { defineConfig } from 'vite'
 import handlebars from 'vite-plugin-handlebars'
 
-const root = resolve(__dirname, 'src')
-const outDir = resolve(__dirname, 'dist')
-const index = resolve(__dirname, './src/index.html')
-const login = resolve(__dirname, './src/pages/auth/login/login.html')
-const chats = resolve(__dirname, './src/pages/chats/chats.html')
-const signin = resolve(__dirname, './src/pages/auth/signin/signin.html')
-const profile = resolve(__dirname, './src/pages/settings/profile/profile.html')
-const password = resolve(__dirname, './src/pages/settings/password/password.html')
-
 export default defineConfig({
-  root,
+  root: resolve(__dirname, 'src'),
   build: {
-    outDir,
+    outDir: resolve(__dirname, 'dist'),
     emptyOutDir: true,
     rollupOptions: {
       input: {
-        index,
-        signin,
-        login,
-        chats,
-        profile,
-        password,
-        404: resolve(__dirname, './src/pages/errors/404.html'),
-        500: resolve(__dirname, './src/pages/errors/500.html'),
+        index: resolve(__dirname, './src/index.html'),
+        signin: resolve(__dirname, './src/pages/auth/signin/signin.html'),
+        login: resolve(__dirname, './src/pages/auth/login/login.html'),
+        chats: resolve(__dirname, './src/pages/chats/chats.html'),
+        profile: resolve(__dirname, './src/pages/settings/profile/profile.html'),
+        password: resolve(__dirname, './src/pages/settings/password/password.html'),
+        404: resolve(__dirname, './src/pages/errors/404/404.html'),
+        500: resolve(__dirname, './src/pages/errors/500/500.html'),
       },
     },
   },
