@@ -1,5 +1,5 @@
 export const template = `
-<input class="{{className}}" name="{{name}}" required="{{required}}"  placeholder="{{placeholder}}">
+<input  {{#if className}} class="{{className}}" {{/if}}  name="{{name}}" {{#if required}} required {{/if}}  {{#if placeholder}} placeholder="{{placeholder}}" {{/if}} >
     {{text}}
 </input>
 `
