@@ -11,7 +11,6 @@ interface BlockProps {
   [key: string]: any
 }
 
-// Нельзя создавать экземпляр данного класса
 class Block {
   private _meta: Meta
   private _id: string | null = null
@@ -221,14 +220,8 @@ class Block {
     }
 
     this._addEvents()
-
-    // Это небезопасный метод для упрощения логики
-    // Используйте шаблонизатор из npm или напишите свой безопасный
-    // Нужно компилировать не в строку (или делать это правильно),
-    // либо сразу превращать в DOM-элементы и возвращать из compile DOM-ноду
   }
 
-  // // Переопределяется пользователем. Необходимо вернуть разметку
   render(): string {
     return this.compile('', this.props)
   }
@@ -269,8 +262,6 @@ class Block {
   }
 
   private _createDocumentElement(tagName: string) {
-    // Можно сделать метод, который через фрагменты в цикле создаёт сразу несколько блоков
-
     const element = document.createElement(tagName)
     if (this.props.withInternalID && this._id) {
       element.setAttribute('data-id', this._id)

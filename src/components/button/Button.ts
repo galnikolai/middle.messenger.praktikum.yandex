@@ -9,7 +9,6 @@ interface ButtonProps {
 }
 export default class Button extends Block {
   constructor(props: ButtonProps) {
-    // Создаём враппер DOM-элемент button
     super('div', props)
   }
 
