@@ -1,7 +1,7 @@
 import { template } from './template'
 import Block from '../../modules/Block'
 
-type ValidationKeys =
+export type ValidationKeys =
   | 'first_name'
   | 'second_name'
   | 'login'
@@ -13,7 +13,7 @@ type ValidationKeys =
   | 'oldPassword'
   | 'password-repeat'
 
-const validationRules: Record<ValidationKeys, RegExp> = {
+export const validationRules: Record<ValidationKeys, RegExp> = {
   first_name: /^[A-ZА-Я][a-zа-я-]*$/,
   second_name: /^[A-ZА-Я][a-zа-я-]*$/,
   login: /^(?!\d+$)[a-zA-Z0-9-_]{3,20}$/,
@@ -26,7 +26,7 @@ const validationRules: Record<ValidationKeys, RegExp> = {
   message: /.+/,
 }
 
-const errorMessages: Record<ValidationKeys, string> = {
+export const errorMessages: Record<ValidationKeys, string> = {
   first_name: 'Invalid first name',
   second_name: 'Invalid second name',
   login: 'Invalid login',
