@@ -1,15 +1,17 @@
 import { template } from './template'
 import Block from '../../modules/Block'
 
-interface ButtonProps {
-  text: string
-  className?: string
+interface FieldProps {
+  name: string
+  label: string
+  required?: boolean
   type?: string
+  className?: string
   events?: any
+  placeholder?: string
 }
-export default class Button extends Block {
-  constructor(props: ButtonProps) {
-    // Создаём враппер DOM-элемент button
+export default class Field extends Block {
+  constructor(props: FieldProps) {
     super('div', props)
   }
 

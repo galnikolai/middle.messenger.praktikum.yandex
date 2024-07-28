@@ -1,36 +1,36 @@
-import { Button, Form, Input, Link } from '../../../components'
+import { Button, Form, Field, Link } from '../../../components'
 import { render } from '../../../utils/renderDOM'
 import Profile from './Profile'
 
 const profile = new Profile({
   form: new Form({
     fields: [
-      new Input({
+      new Field({
         name: 'email',
         label: 'Email',
         required: true,
       }),
-      new Input({
+      new Field({
         name: 'login',
         label: 'Login',
         required: true,
       }),
-      new Input({
+      new Field({
         name: 'first_name',
         label: 'Name',
         required: true,
       }),
-      new Input({
+      new Field({
         name: 'second_name',
         label: 'Surname',
         required: true,
       }),
-      new Input({
+      new Field({
         name: 'phone',
         label: 'Phone number',
         required: true,
       }),
-      new Input({
+      new Field({
         name: 'display_name',
         label: 'Nickname',
         required: true,
@@ -41,18 +41,6 @@ const profile = new Profile({
         type: 'submit',
       }),
     ],
-    events: {
-      submit: (event: Event) => {
-        event.preventDefault()
-
-        const formObject: { [key: string]: FormDataEntryValue } = {}
-        const formData = new FormData(event.target as HTMLFormElement)
-        formData.forEach((value, key) => {
-          formObject[key] = value
-        })
-        console.log(formObject)
-      },
-    },
   }),
   changePassword: new Button({
     text: 'Change password',

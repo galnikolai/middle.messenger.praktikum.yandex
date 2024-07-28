@@ -1,4 +1,4 @@
-import { Form, Input, Button, Link } from '../../../components'
+import { Form, Field, Button, Link } from '../../../components'
 import { render } from '../../../utils/renderDOM'
 import Auth from '../Auth'
 
@@ -6,37 +6,37 @@ const signin = new Auth({
   title: 'Registration',
   form: new Form({
     fields: [
-      new Input({
+      new Field({
         name: 'email',
         label: 'Email',
         required: true,
       }),
-      new Input({
+      new Field({
         name: 'login',
         label: 'Login',
         required: true,
       }),
-      new Input({
+      new Field({
         name: 'name',
         label: 'Password',
         required: true,
       }),
-      new Input({
+      new Field({
         name: 'second_name',
         label: 'Surname',
         required: true,
       }),
-      new Input({
+      new Field({
         name: 'phone',
         label: 'Phone number',
         required: true,
       }),
-      new Input({
+      new Field({
         name: 'password',
         label: 'Password',
         required: true,
       }),
-      new Input({
+      new Field({
         name: 'password-repeat',
         label: 'Password (repeat)',
         required: true,
@@ -47,18 +47,6 @@ const signin = new Auth({
         type: 'submit',
       }),
     ],
-    events: {
-      submit: (event: Event) => {
-        event.preventDefault()
-
-        const formObject: { [key: string]: FormDataEntryValue } = {}
-        const formData = new FormData(event.target as HTMLFormElement)
-        formData.forEach((value, key) => {
-          formObject[key] = value
-        })
-        console.log(formObject)
-      },
-    },
   }),
   link: new Link({
     text: 'Sign in',

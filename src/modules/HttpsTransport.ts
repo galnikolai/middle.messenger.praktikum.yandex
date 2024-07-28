@@ -11,11 +11,7 @@ type Options = {
   timeout?: number
   method: METHODS
 }
-/**
- * Функцию реализовывать здесь необязательно, но может помочь не плодить логику у GET-метода
- * На входе: объект. Пример: {a: 1, b: 2, c: {d: 123}, k: [1, 2, 3]}
- * На выходе: строка. Пример: ?a=1&b=2&c=[object Object]&k=1,2,3
- */
+
 function queryStringify(data: { [key: string]: string }) {
   if (typeof data !== 'object') {
     throw new Error('Data must be object')

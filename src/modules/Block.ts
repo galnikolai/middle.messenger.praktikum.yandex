@@ -159,7 +159,6 @@ class Block {
           listFragment.content.append(`${element}`)
         }
       })
-      console.log(listFragment.content)
 
       stub.replaceWith(listFragment.content)
     })
