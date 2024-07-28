@@ -9,6 +9,9 @@ type ValidationKeys =
   | 'password'
   | 'phone'
   | 'message'
+  | 'newPassword'
+  | 'oldPassword'
+  | 'password-repeat'
 
 const validationRules: Record<ValidationKeys, RegExp> = {
   first_name: /^[A-ZА-Я][a-zа-я-]*$/,
@@ -16,6 +19,9 @@ const validationRules: Record<ValidationKeys, RegExp> = {
   login: /^(?!\d+$)[a-zA-Z0-9-_]{3,20}$/,
   email: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
   password: /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,40}$/,
+  newPassword: /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,40}$/,
+  oldPassword: /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,40}$/,
+  ['password-repeat']: /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,40}$/,
   phone: /^\+?\d{10,15}$/,
   message: /.+/,
 }
@@ -25,7 +31,10 @@ const errorMessages: Record<ValidationKeys, string> = {
   second_name: 'Invalid second name',
   login: 'Invalid login',
   email: 'Invalid email',
+  newPassword: 'Invalid password',
+  oldPassword: 'Invalid password',
   password: 'Invalid password',
+  ['password-repeat']: 'Invalid password',
   phone: 'Invalid phone',
   message: 'Message cannot be empty',
 }

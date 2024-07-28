@@ -34,7 +34,6 @@ const profile = new Profile({
       new Field({
         name: 'display_name',
         label: 'Nickname',
-        required: true,
       }),
       new Button({
         text: 'Save changes',

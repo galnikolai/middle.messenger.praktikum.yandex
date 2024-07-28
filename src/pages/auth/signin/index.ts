@@ -18,7 +18,7 @@ const signin = new Auth({
       }),
       new Field({
         name: 'name',
-        label: 'Password',
+        label: 'Name',
         required: true,
       }),
       new Field({
