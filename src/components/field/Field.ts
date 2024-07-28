@@ -32,7 +32,7 @@ const errorMessages: Record<ValidationKeys, string> = {
 
 interface FieldProps {
   name: string
-  label: string
+  label?: string
   required?: boolean
   type?: string
   className?: string

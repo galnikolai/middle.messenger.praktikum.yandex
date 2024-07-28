@@ -1,4 +1,4 @@
-import { Button, Input, Link } from '../../components'
+import { Button, Field, Input, Link } from '../../components'
 import { render } from '../../utils/renderDOM'
 import Chats from './Chats'
 
@@ -11,7 +11,7 @@ const chats = new Chats({
   searchInput: new Input({
     placeholder: 'Search',
   }),
-  messageInput: new Input({
+  messageInput: new Field({
     placeholder: 'your message',
     name: 'message',
   }),
