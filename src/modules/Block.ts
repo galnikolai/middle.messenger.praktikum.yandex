@@ -169,8 +169,6 @@ class Block {
     const { events = {} } = this.props
 
     Object.keys(events).forEach((eventName) => {
-      console.log(events, this._element?.children, eventName)
-
       if (eventName === 'blur') {
         this._element
           ?.getElementsByTagName('input')[0]
@@ -187,7 +185,6 @@ class Block {
 
     Object.keys(events).forEach((eventName) => {
       if (eventName === 'blur' && this._element) {
-        console.log(this._element)
         this._element.removeEventListener(eventName, events[eventName])
       }
 
