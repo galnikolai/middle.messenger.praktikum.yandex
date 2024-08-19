@@ -270,17 +270,17 @@ class Block {
   }
 
   show() {
-    const content = this.getContent()
-    if (content) {
-      content.style.display = 'block'
-    }
+    // const content = this.getContent()
+    // if (content) {
+    //   content.style.display = 'block'
+    // }
   }
 
   hide() {
-    const content = this.getContent()
-    if (content) {
-      content.style.display = 'none'
-    }
+    // const content = this.getContent()
+    // if (content) {
+    //   content.style.display = 'none'
+    // }
   }
 }
 

@@ -45,7 +45,6 @@ export default class Form extends Block {
           formData.forEach((value, key) => {
             formObject[key] = value
           })
-          console.log(formObject)
         },
       },
     }

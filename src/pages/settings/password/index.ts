@@ -1,8 +1,7 @@
-import { Button, Form, Field, Link } from '../../../components'
-import { render } from '../../../utils/renderDOM'
-import Password from './Password'
+import { Button, Form, Field } from '../../../components'
+import { router } from '../../../modules/Router'
 
-const password = new Password({
+export const password = {
   form: new Form({
     fields: [
       new Field({
@@ -27,11 +26,15 @@ const password = new Password({
       }),
     ],
   }),
-  back: new Link({
-    text: 'Back',
-    className: 'back',
-    href: '/pages/settings/profile/profile',
-  }),
-})
 
-render('.app', password)
+  back: new Button({
+    text: 'Back',
+    className: 'back link',
+    events: {
+      click: (event: Event) => {
+        event.preventDefault()
+        router.go('/settings')
+      },
+    },
+  }),
+}

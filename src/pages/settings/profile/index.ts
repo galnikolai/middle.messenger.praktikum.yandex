@@ -1,9 +1,7 @@
-import { Button, Form, Field, Link } from '../../../components'
+import { Button, Form, Field } from '../../../components'
+import { router } from '../../../modules/Router'
 
-import { render } from '../../../utils/renderDOM'
-import Profile from './Profile'
-
-const profile = new Profile({
+export const profile = {
   form: new Form({
     fields: [
       new Field({
@@ -48,20 +46,28 @@ const profile = new Profile({
     events: {
       click: (event: Event) => {
         event.preventDefault()
-        location.href = '/pages/settings/password/password'
+        router.go('/settings/password')
       },
     },
   }),
-  logout: new Link({
+  logout: new Button({
     text: 'Log out',
-    className: 'logout',
-    href: '/pages/auth/login',
+    className: 'logout link',
+    events: {
+      click: (event: Event) => {
+        event.preventDefault()
+        router.go('/')
+      },
+    },
   }),
-  backToChats: new Link({
+  backToChats: new Button({
     text: 'Back to chats',
-    className: 'back',
-    href: '/pages/chats/chats',
+    className: 'back link',
+    events: {
+      click: (event: Event) => {
+        event.preventDefault()
+        router.go('/messenger')
+      },
+    },
   }),
-})
-
-render('.app', profile)
+}

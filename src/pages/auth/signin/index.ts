@@ -1,8 +1,7 @@
-import { Form, Field, Button, Link } from '../../../components'
-import { render } from '../../../utils/renderDOM'
-import Auth from '../Auth'
+import { Form, Field, Button } from '../../../components'
+import { router } from '../../../modules/Router'
 
-const signin = new Auth({
+export const signin = {
   title: 'Registration',
   form: new Form({
     fields: [
@@ -48,10 +47,15 @@ const signin = new Auth({
       }),
     ],
   }),
-  link: new Link({
-    text: 'Sign in',
-    href: '/pages/auth/login/login',
-  }),
-})
 
-render('.app', signin)
+  link: new Button({
+    text: 'Sign in',
+    className: 'link',
+    events: {
+      click: (event: Event) => {
+        event.preventDefault()
+        router.go('/')
+      },
+    },
+  }),
+}

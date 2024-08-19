@@ -7,6 +7,8 @@ export default class Auth extends Block {
   }
 
   render() {
+    console.log('here')
+
     return this.compile(template, this.props)
   }
 }

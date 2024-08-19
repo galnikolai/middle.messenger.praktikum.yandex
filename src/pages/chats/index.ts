@@ -1,12 +1,16 @@
-import { Button, Field, Input, Link } from '../../components'
-import { render } from '../../utils/renderDOM'
-import Chats from './Chats'
+import { Button, Field, Input } from '../../components'
+import { router } from '../../modules/Router'
 
-const chats = new Chats({
-  profileLink: new Link({
-    className: 'profile-link',
-    href: '/pages/settings/profile/profile',
+export const chats = {
+  profileLink: new Button({
     text: 'Profile >',
+    className: 'profile-link link',
+    events: {
+      click: (event: Event) => {
+        event.preventDefault()
+        router.go('/settings')
+      },
+    },
   }),
   searchInput: new Input({
     placeholder: 'Search',
@@ -18,6 +22,4 @@ const chats = new Chats({
   sendButton: new Button({
     text: 'Send',
   }),
-})
-
-render('.app', chats)
+}

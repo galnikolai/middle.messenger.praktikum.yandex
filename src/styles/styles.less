@@ -1,3 +1,10 @@
+
+@import url('../pages/auth/auth.less');
+@import url('../pages/chats/chats.less');
+@import url('../pages/errors/errors.less');
+@import url('../pages/settings/profile/profile.less');
+
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -103,6 +110,16 @@ p {
     &:hover {
       background-color: var(--button-hover-color);
     }
+  }
+
+  .link {
+    background-color: transparent;
+    color: var(--base);
+    width: auto;
+  }
+  
+  .link:hover {
+    background-color: transparent;
   }
 
   h1 {

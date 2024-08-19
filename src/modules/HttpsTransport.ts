@@ -5,12 +5,15 @@ enum METHODS {
   DELETE = 'DELETE',
 }
 
-type Options = {
-  headers?: { [key: string]: string }
-  data?: { [key: string]: string }
-  timeout?: number
-  method: METHODS
-}
+type Options =
+  | {
+      headers?: { [key: string]: string }
+      data?: { [key: string]: string }
+      timeout?: number
+      method?: METHODS
+      title?: string
+    }
+  | any
 
 function queryStringify(data: { [key: string]: string }) {
   if (typeof data !== 'object') {
@@ -27,21 +30,26 @@ function queryStringify(data: { [key: string]: string }) {
   )
 }
 
-class HTTPTransport {
-  get = (url: string, options: Options) => {
-    return this.request(url, { ...options, method: METHODS.GET }, options.timeout)
+export class HTTPTransport {
+  url: any
+  constructor(url: string) {
+    this.url = url || ''
   }
 
-  put = (url: string, options: Options) => {
-    return this.request(url, { ...options, method: METHODS.PUT }, options.timeout)
+  get = (url?: string, options?: Options) => {
+    return this.request(this.url || url, { ...options, method: METHODS.GET }, options?.timeout)
   }
 
-  post = (url: string, options: Options) => {
-    return this.request(url, { ...options, method: METHODS.POST }, options.timeout)
+  put = (url?: string, options?: Options) => {
+    return this.request(this.url || url, { ...options, method: METHODS.PUT }, options?.timeout)
   }
 
-  delete = (url: string, options: Options) => {
-    return this.request(url, { ...options, method: METHODS.DELETE }, options.timeout)
+  post = (url?: string, options?: Options) => {
+    return this.request(this.url || url, { ...options, method: METHODS.POST }, options?.timeout)
+  }
+
+  delete = (url?: string, options?: Options) => {
+    return this.request(this.url || url, { ...options, method: METHODS.DELETE }, options?.timeout)
   }
 
   request = (url: string, options: Options, timeout: number = 5000) => {
