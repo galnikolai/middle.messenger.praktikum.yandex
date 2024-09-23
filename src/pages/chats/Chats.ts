@@ -17,10 +17,11 @@ export default class ChatsBase extends Block {
   protected componentDidUpdate(_oldProps: BlockProps, newProps: BlockProps): boolean {
     // console.log(oldProps)
 
-    const chatContent = document.querySelector('.chat-content')
+    if (!this.element) return true
+    const chatContent = this.element.querySelector('.chat-content')
 
     if (!!newProps?.chats?.length) {
-      const chatList = document.querySelector('.chat-list')
+      const chatList = this.element.querySelector('.chat-list')
 
       if (chatList?.innerHTML) {
         chatList.innerHTML = ''
@@ -52,7 +53,7 @@ export default class ChatsBase extends Block {
     }
 
     if (!!newProps?.users?.length) {
-      const chatList = document.querySelector('.users-list')
+      const chatList = this.element.querySelector('.users-list')
 
       if (chatList?.innerHTML) {
         chatList.innerHTML = ''
@@ -75,7 +76,7 @@ export default class ChatsBase extends Block {
     }
 
     if (!!newProps?.selectedChatUsers?.length) {
-      const chatList = document.querySelector('.chat-users-list')
+      const chatList = this.element.querySelector('.chat-users-list')
 
       if (chatList?.innerHTML) {
         chatList.innerHTML = ''
