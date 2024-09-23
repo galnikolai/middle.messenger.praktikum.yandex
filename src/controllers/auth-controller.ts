@@ -26,7 +26,11 @@ export class AuthController {
     try {
       const data: XMLHttpRequest = await this.api.login(credentials)
 
-      console.log(data)
+      if (data?.response?.reason === 'User already in system') {
+        router.go(Routes.Messenger)
+        return
+      }
+
       if (data?.response?.reason) {
         throw new Error(data?.response?.reason)
       }
@@ -58,9 +62,7 @@ export class AuthController {
       const { response }: { response: User } = data
 
       if (response?.reason) {
-        console.log(response?.reason)
         router.go(Routes.LogIn)
-
         throw new Error(response?.reason)
       }
 

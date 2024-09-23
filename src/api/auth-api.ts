@@ -37,7 +37,7 @@ export class AuthAPI extends BaseAPI {
   }
 
   async login(data: SigninData): Promise<null> {
-    return this.http.post('/login', { data })
+    return this.http.post('/signin', { data })
   }
 
   async logout() {
