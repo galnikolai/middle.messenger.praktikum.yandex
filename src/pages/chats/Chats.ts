@@ -44,7 +44,6 @@ export default class ChatsBase extends Block {
         chatItem.appendChild(chatLastMessage)
 
         chatItem.onclick = () => {
-          store.set('selectedChat', i?.id)
           chatsController.getChatToken(i?.id)
         }
 

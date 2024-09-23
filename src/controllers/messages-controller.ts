@@ -8,16 +8,12 @@ class MessagesController extends WSTransport {
     super()
   }
 
-  public async sendMessage() {
-    // try {
-    //   const data: XMLHttpRequest = await this.api.getChats()
-    //   if (data?.response?.reason) {
-    //     throw new Error(data?.response?.reason)
-    //   }
-    //   store.set('chats', data?.response)
-    // } catch (error) {
-    //   alert(error)
-    // }
+  public async sendMessage(message: string) {
+    const data = this.send({
+      content: message,
+      type: 'message',
+    })
+    console.log(data)
   }
 
   public async getMessages() {

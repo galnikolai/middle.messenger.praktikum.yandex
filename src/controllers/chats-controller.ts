@@ -73,13 +73,18 @@ class ChatsController {
 
   public async getChatToken(chatToken: number) {
     try {
+      if (store.getState().selectedChat) {
+        messagesController.close()
+      }
+
+      store.set('selectedChat', chatToken)
+
       const data: XMLHttpRequest = await this.api.getChatToken(chatToken)
 
       if (data?.response?.reason) {
         throw new Error(data?.response?.reason)
       }
 
-      console.log('token', data.response.token)
       store.set('chatToken', data.response.token)
       messagesController.connectToApi()
     } catch (error) {
