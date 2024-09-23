@@ -1,6 +1,7 @@
 
 @import url('../pages/auth/auth.less');
 @import url('../pages/chats/chats.less');
+@import url('../pages/chats/users-list/users-list.less');
 @import url('../pages/errors/errors.less');
 @import url('../pages/settings/profile/profile.less');
 
@@ -110,12 +111,30 @@ p {
     &:hover {
       background-color: var(--button-hover-color);
     }
+
+  }
+
+  .back {
+    display: block;
+    margin-top: 20px;
+    color: var(--base);
+    text-decoration: none;
+    position: absolute;
+    left: 40px;
+    top: 0;
+    font-weight: 800;
+    width: fit-content;
+    background: transparent;
+  }
+
+  .back:hover {
+    background: transparent;
   }
 
   .link {
     background-color: transparent;
     color: var(--base);
-    width: auto;
+
   }
   
   .link:hover {
@@ -144,5 +163,43 @@ p {
     &:hover {
       text-decoration: underline;
     }
+  }
+
+  .popup {
+    .active {
+      display: flex;
+    }
+  
+    .disabled {
+      display: none;
+    }
+  }
+
+  .popup-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+  }
+
+
+  .popup-content {
+    background-color: #fff;
+    border-radius: 6px;
+    padding: 20px;
+    width: 50%;
+    height: 50%;
+  }
+
+  .cross {
+    justify-content: flex-end;
+    display: flex;
+    padding: 0 0 20px;
+    font-size: 20px;
+    cursor: pointer
   }
 }

@@ -1,18 +1,17 @@
-export class BaseAPI {
-  // На случай, если забудете переопределить метод и используете его, — выстрелит ошибка
-  create() {
-    throw new Error('Not implemented')
+import { HTTPTransport } from '../modules/HttpsTransport'
+
+export default abstract class BaseAPI {
+  protected http: HTTPTransport
+
+  protected constructor(endpoint: string) {
+    this.http = new HTTPTransport(endpoint)
   }
 
-  public request() {
-    throw new Error('Not implemented')
-  }
+  public abstract create?(data: unknown): Promise<unknown>
 
-  update() {
-    throw new Error('Not implemented')
-  }
+  public abstract read?(identifier?: string | number): Promise<unknown>
 
-  delete() {
-    throw new Error('Not implemented')
-  }
+  public abstract update?(identifier: string | number, data: unknown): Promise<unknown>
+
+  public abstract delete?(identifier: string | number): Promise<unknown>
 }

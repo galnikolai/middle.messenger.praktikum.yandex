@@ -1,4 +1,7 @@
-const trim = (value: string, pattern?: string) => {
+import Block from '../modules/Block'
+import { StoreEvents, store } from '../modules/Store'
+
+export const trim = (value: string, pattern?: string) => {
   let val = value.split(' ').join('')
   if (pattern) {
     const splittedpatern = pattern.split('')
@@ -31,7 +34,7 @@ const trim = (value: string, pattern?: string) => {
 //   return result
 // }
 
-type Indexed<T = any> = {
+export type Indexed<T = any> = {
   [key in string]: T
 }
 
@@ -55,7 +58,7 @@ function merge(lhs: Indexed, rhs: Indexed): Indexed {
   return lhs
 }
 
-function set(object: Indexed | unknown, path: string, value: unknown): Indexed | unknown {
+export function set(object: Indexed | unknown, path: string, value: unknown): Indexed | unknown {
   if (typeof path !== 'string') {
     throw new Error('path must be string')
   }
@@ -76,7 +79,7 @@ function set(object: Indexed | unknown, path: string, value: unknown): Indexed |
   return merge(object as Indexed, reducedObj)
 }
 
-function isEqual(lhs: any, rhs: any): boolean {
+export function isEqual(lhs: any, rhs: any): boolean {
   // Если оба значения не являются объектами, сравниваем их напрямую
   if (typeof lhs !== 'object' || typeof rhs !== 'object' || lhs === null || rhs === null) {
     return lhs === rhs
@@ -129,7 +132,7 @@ function isArrayOrObject(value: unknown): value is [] | PlainObject {
   return isPlainObject(value) || isArray(value)
 }
 
-function cloneDeep(obj: any): any {
+export function cloneDeep(obj: any): any {
   if (isArray(obj)) {
     return obj.map((i) => cloneDeep(i))
   }
@@ -147,18 +150,6 @@ function cloneDeep(obj: any): any {
   }
 
   return obj
-}
-
-type StringIndexed = Record<string, any>
-
-const obj: StringIndexed = {
-  key: 1,
-  key2: 'test',
-  key3: false,
-  key4: true,
-  key5: [1, 2, 3],
-  key6: { a: 1 },
-  key7: { b: { d: 2 } },
 }
 
 /* мое решение
@@ -226,7 +217,7 @@ function getParams(data: PlainObject | [], parentKey?: string) {
   return result
 }
 
-function queryString(data: PlainObject) {
+export function queryString(data: PlainObject) {
   if (!isPlainObject(data)) {
     throw new Error('input must be an object')
   }
@@ -237,3 +228,29 @@ function queryString(data: PlainObject) {
 }
 
 ///////
+
+export function connect(Component: typeof Block, mapStateToProps: (state: Indexed) => Indexed) {
+  // используем class expression
+
+  return class extends Component {
+    constructor(props: any) {
+      let state = mapStateToProps(store.getState())
+
+      super({ ...props, ...state })
+
+      // подписываемся на событие
+      store.on(StoreEvents.Updated, () => {
+        // при обновлении получаем новое состояние
+        const newState = mapStateToProps(store.getState())
+
+        // если что-то из используемых данных поменялось, обновляем компонент
+        if (!isEqual(state, newState)) {
+          this.setProps({ ...newState })
+        }
+
+        // не забываем сохранить новое состояние
+        state = newState
+      })
+    }
+  }
+}

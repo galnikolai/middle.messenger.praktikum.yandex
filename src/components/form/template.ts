@@ -1,7 +1,5 @@
 export const template = `
-<form class="{{className}}">
-  {{#each fields}}
-    {{this}}
-  {{/each}}
+<form  {{#if className}} class="{{className}}" {{/if}}  {{#if id}}  id="{{id}}"  {{/if}} >
+   {{{fields}}}
 </form>
 `

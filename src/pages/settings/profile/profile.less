@@ -15,6 +15,11 @@
     border-radius: 50%;
     background-color: var(--border-color);
     display: inline-block;
+    cursor: pointer;
+  }
+
+  .submit-form-data {
+    display: none;
   }
 
   .save-changes {
@@ -22,9 +27,19 @@
     margin-bottom: 18px;
   }
 
+  .save-changes:disabled {
+    cursor: initial;
+  }
+
   .save-changes:hover {
     background-color: var(--base);
   }
+
+  .save-changes:disabled:hover {
+    background-color: var(--base-light);
+  }
+
+
 
   .change-password {
     background-color: var(--red-light);
@@ -35,6 +50,7 @@
   }
 
   .logout {
+    top: initial !important;
     display: block;
     margin-top: 20px;
     color: var(--red-light);
@@ -45,16 +61,6 @@
     font-weight: 800;
   }
 
-  .back {
-    display: block;
-    margin-top: 20px;
-    color: var(--base);
-    text-decoration: none;
-    position: absolute;
-    left: 40px;
-    top: 0;
-    font-weight: 800;
-  }
 
   .logout:hover {
     color: var(--red-dark);

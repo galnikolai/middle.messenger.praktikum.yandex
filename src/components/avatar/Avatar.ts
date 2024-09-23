@@ -1,15 +1,14 @@
 import { template } from './template'
 import Block from '../../modules/Block'
 
-interface ButtonProps {
-  text: string
+interface AvatarProps {
+  src?: string
   className?: string
-  type?: string
+  id?: string | number
   events?: any
-  id?: string
 }
-export default class Button extends Block {
-  constructor(props: ButtonProps) {
+export default class Avatar extends Block {
+  constructor(props: AvatarProps) {
     super('div', props)
   }
 

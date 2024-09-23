@@ -1,84 +1,24 @@
 export const template = `
     <div class="chat-container">
       <div class="sidebar">
-        {{{ profileLink }}}
+      <div class="button-block">
+      {{{ createChat }}}
+      {{{ profileLink }}}
+      </div>
         <div class="search-bar">
           {{{ searchInput }}}
         </div>
         <div class="chat-list">
-          <div class="chat-item active">
-            <span class="chat-name">Name</span>
-            <span class="chat-last-message">Message</span>
-          </div>
-          <div class="chat-item">
-            <span class="chat-name">Name</span>
-            <span class="chat-last-message">Message</span>
-          </div>
-          <div class="chat-item active">
-            <span class="chat-name">Name</span>
-            <span class="chat-last-message">Message</span>
-          </div>
-          <div class="chat-item active">
-            <span class="chat-name">Name</span>
-            <span class="chat-last-message">Message</span>
-          </div>
-          <div class="chat-item active">
-            <span class="chat-name">Name</span>
-            <span class="chat-last-message">Message</span>
-          </div>
-          <div class="chat-item active">
-            <span class="chat-name">Name</span>
-            <span class="chat-last-message">Message</span>
-          </div>
-          <div class="chat-item active">
-            <span class="chat-name">Name</span>
-            <span class="chat-last-message">Message</span>
-          </div>
-          <div class="chat-item active">
-            <span class="chat-name">Name</span>
-            <span class="chat-last-message">Message</span>
-          </div>
-          <div class="chat-item active">
-            <span class="chat-name">Name</span>
-            <span class="chat-last-message">Message</span>
-          </div>
-          <div class="chat-item active">
-            <span class="chat-name">Name</span>
-            <span class="chat-last-message">Message</span>
-          </div>
-          <div class="chat-item active">
-            <span class="chat-name">Name</span>
-            <span class="chat-last-message">Message</span>
-          </div>
-          <div class="chat-item active">
-            <span class="chat-name">Name</span>
-            <span class="chat-last-message">Message</span>
-          </div>
-          <div class="chat-item active">
-            <span class="chat-name">Name</span>
-            <span class="chat-last-message">Message</span>
-          </div>
-          <div class="chat-item active">
-            <span class="chat-name">Name</span>
-            <span class="chat-last-message">Message</span>
-          </div>
-          <div class="chat-item active">
-            <span class="chat-name">Name</span>
-            <span class="chat-last-message">Message</span>
-          </div>
-          <div class="chat-item active">
-            <span class="chat-name">Name</span>
-            <span class="chat-last-message">Message</span>
-          </div>
-          <div class="chat-item active">
-            <span class="chat-name">Name</span>
-            <span class="chat-last-message">Message</span>
-          </div>
+
         </div>
       </div>
       <div class="chat-content">
+        <div class="chat-placeholder">
+           Select any chat
+        </div>
         <div class="chat-header">
           <span class="chat-title">Name</span>
+          <div class="button-block">{{{ editUsers }}} {{{ addUsers }}}</div>
         </div>
         <div class="chat-messages">
           <div class="message received">

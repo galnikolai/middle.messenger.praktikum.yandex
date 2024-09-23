@@ -1,8 +1,17 @@
 import Block from '../../modules/Block'
 import { ValidationKeys, validationRules, errorMessages } from '../field/Field'
+import { template } from './template'
+
+interface FormProps {
+  className?: string
+  id?: number | string
+  events?: any
+  fields?: any
+  stateParent?: string
+}
 
 export default class Form extends Block {
-  constructor(props: any) {
+  constructor(props: FormProps) {
     const newProps = {
       ...props,
       events: {
@@ -45,13 +54,16 @@ export default class Form extends Block {
           formData.forEach((value, key) => {
             formObject[key] = value
           })
+          if (props?.events?.submit) {
+            props.events.submit(formObject)
+          }
         },
       },
     }
-    super('form', newProps)
+    super('div', newProps)
   }
 
   render() {
-    return this.compile('{{{fields}}}', this.props)
+    return this.compile(template, this.props)
   }
 }

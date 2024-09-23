@@ -1,5 +1,11 @@
 import { Button, Field, Input } from '../../components'
+import Popup from '../../components/popup/Popup'
+import { chatsController } from '../../controllers/chats-controller'
+import { userController } from '../../controllers/user-controller'
 import { router } from '../../modules/Router'
+import ChatUsersList from './chat-user-list/ChatUsersList'
+import { usersList } from './users-list'
+import UsersList from './users-list/UsersList'
 
 export const chats = {
   profileLink: new Button({
@@ -11,6 +17,42 @@ export const chats = {
         router.go('/settings')
       },
     },
+  }),
+  createChat: new Button({
+    text: 'Create new chat',
+    className: 'profile-link link',
+    events: {
+      click: (event: Event) => {
+        event.preventDefault()
+        chatsController.createChat()
+      },
+    },
+  }),
+  editUsers: new Popup({
+    button: new Button({
+      text: 'Manage chat participants',
+      className: 'profile-link link',
+      events: {
+        click: (event: Event) => {
+          event.preventDefault()
+          chatsController.getChatUsers()
+        },
+      },
+    }),
+    content: new ChatUsersList({}),
+  }),
+  addUsers: new Popup({
+    button: new Button({
+      text: 'Add new users',
+      className: 'profile-link link',
+      events: {
+        click: (event: Event) => {
+          event.preventDefault()
+          userController.searchUsers('')
+        },
+      },
+    }),
+    content: new UsersList(usersList),
   }),
   searchInput: new Input({
     placeholder: 'Search',

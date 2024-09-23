@@ -4,6 +4,11 @@ function isEqual(lhs: any, rhs: any) {
   return lhs === rhs
 }
 
+export enum Routes {
+  LogIn = '/',
+  SignUp = '/sign-up',
+  Messenger = '/messenger',
+}
 class Route {
   _pathname: string
   _blockClass: any
@@ -91,7 +96,7 @@ class Router {
       this._currentRoute.leave()
     }
 
-    console.log(route, pathname, route.render)
+    // console.log(route, pathname, route.render)
     this._currentRoute = route
     route.render(route, pathname)
   }

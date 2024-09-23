@@ -1,4 +1,5 @@
 import { Form, Field, Button } from '../../../components'
+import { authController } from '../../../controllers/auth-controller'
 import { router } from '../../../modules/Router'
 
 export const signin = {
@@ -16,7 +17,7 @@ export const signin = {
         required: true,
       }),
       new Field({
-        name: 'name',
+        name: 'first_name',
         label: 'Name',
         required: true,
       }),
@@ -35,17 +36,17 @@ export const signin = {
         label: 'Password',
         required: true,
       }),
-      new Field({
-        name: 'password-repeat',
-        label: 'Password (repeat)',
-        required: true,
-      }),
       new Button({
         text: 'Sign up',
         className: 'save-changes',
         type: 'submit',
       }),
     ],
+    events: {
+      submit: (data: any) => {
+        authController.signup(data)
+      },
+    },
   }),
 
   link: new Button({
@@ -53,6 +54,7 @@ export const signin = {
     className: 'link',
     events: {
       click: (event: Event) => {
+        console.log(event)
         event.preventDefault()
         router.go('/')
       },

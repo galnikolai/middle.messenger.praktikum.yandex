@@ -1,4 +1,6 @@
+import { SigninData } from '../../../api/auth-api'
 import { Form, Field, Button } from '../../../components'
+import { authController } from '../../../controllers/auth-controller'
 import { router } from '../../../modules/Router'
 
 export const login = {
@@ -21,6 +23,11 @@ export const login = {
         type: 'submit',
       }),
     ],
+    events: {
+      submit: (data: SigninData) => {
+        authController.login(data)
+      },
+    },
   }),
 
   link: new Button({
