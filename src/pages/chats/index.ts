@@ -71,6 +71,17 @@ export const chats = {
     }),
     content: new UsersList(usersList),
   }),
+  deleteChat: new Button({
+    text: 'Delete chat',
+    className: 'profile-link link',
+    events: {
+      click: (event: Event) => {
+        event.preventDefault()
+        chatsController.deleteChat()
+      },
+    },
+  }),
+
   searchInput: new Input({
     placeholder: 'Search',
   }),

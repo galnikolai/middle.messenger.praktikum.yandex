@@ -18,7 +18,7 @@ export const template = `
         </div>
         <div class="chat-header">
           <span class="chat-title">Name</span>
-          <div class="button-block">{{{ editUsers }}} {{{ addUsers }}}</div>
+          <div class="button-block">{{{ editUsers }}} {{{ addUsers }}}   {{{ deleteChat }}}</div>
         </div>
         <div class="chat-messages">
          

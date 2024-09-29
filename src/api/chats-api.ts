@@ -31,23 +31,29 @@ export class ChatsAPI extends BaseAPI {
     super('/chats')
   }
 
-  async getChats(): Promise<{ id: number }> {
+  async getChats() {
     return this.http.get('', {})
   }
 
-  async createChat(data: { title: string }): Promise<{ id: number }> {
+  async createChat(data: { title: string }) {
     return this.http.post('', {
       data,
     })
   }
 
-  async addUserToChat(data: userAddition): Promise<{ id: number }> {
+  async deleteChat(data: { chatId: string }) {
+    return this.http.delete('', {
+      data,
+    })
+  }
+
+  async addUserToChat(data: userAddition) {
     return this.http.put('/users', {
       data,
     })
   }
 
-  async getChatToken(chatToken: number): Promise<{ id: number }> {
+  async getChatToken(chatToken: number) {
     return this.http.post(`/token/${chatToken}`, {})
   }
 

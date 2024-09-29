@@ -43,6 +43,23 @@ class ChatsController {
     }
   }
 
+  public async deleteChat() {
+    try {
+      const data: XMLHttpRequest = await this.api.deleteChat({
+        chatId: store.getState().selectedChat,
+      })
+
+      if (data?.response?.reason) {
+        throw new Error(data?.response?.reason)
+      }
+
+      this.getChats()
+      store.set('selectedChat', undefined)
+    } catch (error) {
+      alert(error)
+    }
+  }
+
   public async addUserToChat(userId: number) {
     try {
       const data: XMLHttpRequest = await this.api.addUserToChat({
