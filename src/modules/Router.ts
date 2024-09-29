@@ -96,7 +96,6 @@ class Router {
       this._currentRoute.leave()
     }
 
-    // console.log(route, pathname, route.render)
     this._currentRoute = route
     route.render(route, pathname)
   }

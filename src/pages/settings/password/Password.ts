@@ -23,16 +23,13 @@ export default class PasswordBase extends Block {
       ?.getAttribute('value')
 
     const saveButton = document.getElementById('save-changes')
-    console.log(
-      newPassword === repeatNewPassword && !!newPassword?.length && !!repeatNewPassword?.length
-    )
+
     if (newPassword === repeatNewPassword && !!newPassword?.length && !!repeatNewPassword?.length) {
       saveButton?.removeAttribute('disabled')
     } else {
       saveButton?.setAttribute('disabled', '')
     }
 
-    console.log(document.getElementById('save-changes'))
     // if (!isEqual(oldProps, newProps)) {
     const avatar = document.getElementById('avatar')
     avatar?.setAttribute('src', `https://ya-praktikum.tech/api/v2/resources${newProps.user.avatar}`)

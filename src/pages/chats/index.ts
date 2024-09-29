@@ -1,4 +1,4 @@
-import { Button, Field, Input } from '../../components'
+import { Button, Field, Form, Input } from '../../components'
 import Popup from '../../components/popup/Popup'
 import { chatsController } from '../../controllers/chats-controller'
 import { messagesController } from '../../controllers/messages-controller'
@@ -19,16 +19,32 @@ export const chats = {
       },
     },
   }),
-  createChat: new Button({
-    text: 'Create new chat',
-    className: 'profile-link link',
-    events: {
-      click: (event: Event) => {
-        event.preventDefault()
-        chatsController.createChat()
+  createChat: new Popup({
+    button: new Button({
+      text: 'Create new chat',
+      className: 'profile-link link',
+    }),
+    content: new Form({
+      fields: [
+        new Field({
+          name: 'title',
+          label: 'Title',
+          required: true,
+        }),
+        new Button({
+          text: 'Create',
+          className: 'сreate',
+          type: 'submit',
+        }),
+      ],
+      events: {
+        submit: (data: { title: string }) => {
+          chatsController.createChat(data)
+        },
       },
-    },
+    }),
   }),
+
   editUsers: new Popup({
     button: new Button({
       text: 'Manage chat participants',
@@ -71,6 +87,8 @@ export const chats = {
         const inputValue: any = document.querySelector('#message-input')
 
         messagesController.sendMessage(inputValue?.value)
+        inputValue.value = ' '
+        inputValue.focus()
       },
     },
   }),

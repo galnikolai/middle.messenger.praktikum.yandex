@@ -23,13 +23,19 @@ class ChatsController {
     }
   }
 
-  public async createChat() {
+  public async createChat(info: { title: string }) {
     try {
-      const data: XMLHttpRequest = await this.api.createChat()
+      const data: XMLHttpRequest = await this.api.createChat(info)
 
       if (data?.response?.reason) {
         throw new Error(data?.response?.reason)
       }
+
+      const popups = document.querySelectorAll('.popup-container')
+      popups.forEach((item) => {
+        item?.classList.add('disabled')
+        item?.classList.remove('active')
+      })
 
       this.getChats()
     } catch (error) {
@@ -87,6 +93,7 @@ class ChatsController {
 
       store.set('chatToken', data.response.token)
       messagesController.connectToApi()
+      messagesController.getOldMessages()
     } catch (error) {
       alert(error)
     }

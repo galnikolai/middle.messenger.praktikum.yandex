@@ -5,7 +5,7 @@ interface ButtonProps {
   text: string
   className?: string
   type?: string
-  events?: any
+  events?: unknown
   id?: string
 }
 export default class Button extends Block {

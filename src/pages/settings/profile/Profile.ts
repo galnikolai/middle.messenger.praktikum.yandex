@@ -11,9 +11,7 @@ class ProfileBase extends Block {
     authController.getUser()
   }
 
-  protected componentDidUpdate(oldProps: BlockProps, newProps: BlockProps): boolean {
-    console.log(oldProps)
-
+  protected componentDidUpdate(_oldProps: BlockProps, newProps: BlockProps): boolean {
     this.children.form.lists.fields.map((i: any) => {
       if (!i.props.value || i.props.value !== newProps.user[i.props.name]) {
         i.setProps({ value: newProps.user[i.props.name] })

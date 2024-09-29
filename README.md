@@ -28,11 +28,11 @@ Usage
 
 ## Pages:
 
-- Sign in http://localhost:3000/pages/auth/signin/signin
-- Login http://localhost:3000/pages/auth/login/login
-- Profile settings http://localhost:3000/pages/settings/profile/profile
-- Change password http://localhost:3000/pages/settings/password/password
-- Chats http://localhost:3000/pages/chats/chats
+- Login http://localhost:3000
+- Sign up http://localhost:3000/sign-up
+- Chats http://localhost:3000/messenger
+- Profile settings http://localhost:3000/settings
+- Change password http://localhost:3000/settings/password
 
 - 404 http://localhost:3000/pages/errors/404
 - 500 http://localhost:3000/pages/errors/500
@@ -40,4 +40,4 @@ Usage
 ## Usefull links
 
 - Link to the prototypes on Figma - https://www.figma.com/design/pW1a9hUMSbz0IQS7kmQHy0/Messenger-screens?node-id=21-5926&t=ISMBQTMHilqQYiGA-0
-- Preview on Netlify - https://deploy-preview-2--jade-granita-389e23.netlify.app
+- Preview on Netlify - https://deploy-preview-3--jade-granita-389e23.netlify.app/

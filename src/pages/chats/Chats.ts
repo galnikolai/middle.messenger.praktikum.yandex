@@ -5,6 +5,7 @@ import { chatsController } from '../../controllers/chats-controller'
 
 import Block, { BlockProps } from '../../modules/Block'
 import { store, withStore } from '../../modules/Store'
+
 import { template } from './template'
 
 export default class ChatsBase extends Block {
@@ -15,10 +16,11 @@ export default class ChatsBase extends Block {
   }
 
   protected componentDidUpdate(_oldProps: BlockProps, newProps: BlockProps): boolean {
-    // console.log(oldProps)
-
     if (!this.element) return true
     const chatContent = this.element.querySelector('.chat-content')
+    const messagesContainer: any = this.element.querySelector('.chat-messages')
+    const selectedChat: number | undefined = store.getState().selectedChat
+    messagesContainer.innerHTML = ''
 
     if (!!newProps?.chats?.length) {
       const chatList = this.element.querySelector('.chat-list')
@@ -38,7 +40,10 @@ export default class ChatsBase extends Block {
         chatName.textContent = i?.title || ''
 
         chatLastMessage.classList.add('chat-last-message')
-        chatLastMessage.textContent = i?.last_message?.content || 'No messages yet'
+        chatLastMessage.textContent =
+          selectedChat === i?.id
+            ? newProps?.messages[0]?.content || i?.last_message?.content || 'No messages yet'
+            : i?.last_message?.content || 'No messages yet'
 
         chatItem.appendChild(chatName)
         chatItem.appendChild(chatLastMessage)
@@ -101,10 +106,22 @@ export default class ChatsBase extends Block {
       })
     }
 
-    if (!store.getState().selectedChat) {
+    if (!selectedChat) {
       chatContent?.classList.add('content-disabled')
     } else {
       chatContent?.classList.remove('content-disabled')
+    }
+
+    if (!!newProps?.messages?.length) {
+      newProps?.messages.reverse().map((item: any) => {
+        const message = this.createDocumentElement('div')
+        message.textContent = item.content
+        message.classList.add('message')
+        message.classList.add(newProps?.user.id === item.user_id ? 'sent' : 'received')
+        messagesContainer.prepend(message)
+      })
+
+      messagesContainer.scrollTop = messagesContainer.scrollHeight
     }
 
     return false
@@ -121,6 +138,8 @@ const withChats = withStore((state: any) => {
     selectedChat: state.selectedChat || 0,
     selectedChatUsers: state.selectedChatUsers || [],
     users: state.users || [],
+    messages: state.messages || [],
+    user: state.user || {},
   }
 })
 

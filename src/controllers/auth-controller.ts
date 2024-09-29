@@ -46,7 +46,6 @@ export class AuthController {
       const data: XMLHttpRequest = await this.api.logout()
       const { response } = data
       if (response?.reason) {
-        console.log(data.response)
         throw new Error(data.response)
       }
 

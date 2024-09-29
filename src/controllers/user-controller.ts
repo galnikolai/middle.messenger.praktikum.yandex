@@ -39,8 +39,8 @@ export class UserController {
 
   public changePassword() {
     userApi
-      .changePassword(store.getState().password)
-      .then((data: XMLHttpRequest) => {
+      ?.changePassword(store.getState().password)
+      ?.then((data: XMLHttpRequest) => {
         const { response }: { response: User } = data
 
         if (response?.reason) {

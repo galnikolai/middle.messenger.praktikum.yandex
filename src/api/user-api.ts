@@ -32,25 +32,25 @@ export class UserAPI extends BaseAPI {
     super('/user')
   }
 
-  getUser(): any {
+  getUser() {
     return this.http.get('/user')
   }
 
-  searchUsers(data: { login: string }): any {
+  searchUsers(data: { login: string }) {
     return this.http.post('/search', {
       data,
     })
   }
 
-  setUser(data: User | undefined): any {
+  setUser(data: User | undefined) {
     return this.http.put('/profile', { data })
   }
 
-  changeAvatar(data: FormData): any {
+  changeAvatar(data: FormData) {
     return this.http.put('/profile/avatar', { data, content_type: 'multipart/form-data' })
   }
 
-  changePassword(data: Password | undefined): any {
+  changePassword(data: Password | undefined) {
     if (data) {
       const { oldPassword, newPassword } = data
       return this.http.put('/password', { data: { oldPassword, newPassword } })

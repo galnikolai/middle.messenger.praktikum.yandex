@@ -31,15 +31,13 @@ export class ChatsAPI extends BaseAPI {
     super('/chats')
   }
 
-  async getChats(data: any): Promise<{ id: number }> {
-    return this.http.get('', { data })
+  async getChats(): Promise<{ id: number }> {
+    return this.http.get('', {})
   }
 
-  async createChat(): Promise<{ id: number }> {
+  async createChat(data: { title: string }): Promise<{ id: number }> {
     return this.http.post('', {
-      data: {
-        title: `Chat #${store.getState().chats?.length || ''}`,
-      },
+      data,
     })
   }
 
@@ -53,11 +51,11 @@ export class ChatsAPI extends BaseAPI {
     return this.http.post(`/token/${chatToken}`, {})
   }
 
-  async addUsers(data: any): Promise<any> {
-    return this.http.put('/users', { data })
+  async addUsers(): Promise<any> {
+    return this.http.put('/users', {})
   }
 
-  async deleteUsers(data: any): Promise<any> {
+  async deleteUsers(data: { users: string[]; chatId: number }): Promise<any> {
     return this.http.delete('/users', { data })
   }
 
