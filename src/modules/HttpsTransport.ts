@@ -31,6 +31,8 @@ function queryStringify(data: { [key: string]: string }) {
   )
 }
 
+type HTTPMethod = (url: string, options?: Options) => Promise<any>
+
 export class HTTPTransport {
   static API_URL = 'https://ya-praktikum.tech/api/v2'
 
@@ -39,21 +41,17 @@ export class HTTPTransport {
     this.url = `${HTTPTransport.API_URL}${url}`
   }
 
-  get = (url?: string, options?: Options): Promise<any> => {
-    return this.request(this.url + url, { ...options, method: METHODS.GET }, options?.timeout)
-  }
+  get: HTTPMethod = (url, options = {}) =>
+    this.request(this.url + url, { ...options, method: METHODS.GET }, options?.timeout)
 
-  put = (url?: string, options?: Options): Promise<any> => {
-    return this.request(this.url + url, { ...options, method: METHODS.PUT }, options?.timeout)
-  }
+  put: HTTPMethod = (url, options = {}) =>
+    this.request(this.url + url, { ...options, method: METHODS.PUT }, options?.timeout)
 
-  post = (url?: string, options?: Options): Promise<any> => {
-    return this.request(this.url + url, { ...options, method: METHODS.POST }, options?.timeout)
-  }
+  post: HTTPMethod = (url, options = {}) =>
+    this.request(this.url + url, { ...options, method: METHODS.POST }, options?.timeout)
 
-  delete = (url?: string, options?: Options): Promise<any> => {
-    return this.request(this.url + url, { ...options, method: METHODS.DELETE }, options?.timeout)
-  }
+  delete: HTTPMethod = (url, options = {}) =>
+    this.request(this.url + url, { ...options, method: METHODS.DELETE }, options?.timeout)
 
   request = (
     url: string,
