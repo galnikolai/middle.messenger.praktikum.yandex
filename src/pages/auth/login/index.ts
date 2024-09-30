@@ -1,8 +1,9 @@
-import { Form, Field, Button, Link } from '../../../components'
-import { render } from '../../../utils/renderDOM'
-import Auth from '../Auth'
+import { SigninData } from '../../../api/auth-api'
+import { Form, Field, Button } from '../../../components'
+import { authController } from '../../../controllers/auth-controller'
+import { router } from '../../../modules/Router'
 
-const login = new Auth({
+export const login = {
   title: 'Signin',
   form: new Form({
     fields: [
@@ -22,12 +23,21 @@ const login = new Auth({
         type: 'submit',
       }),
     ],
+    events: {
+      submit: (data: SigninData) => {
+        authController.login(data)
+      },
+    },
   }),
-  link: new Link({
-    text: 'Have no profile?',
-    className: 'register-link',
-    href: '/pages/auth/signin/signin',
-  }),
-})
 
-render('.app', login)
+  link: new Button({
+    text: 'Have no profile?',
+    className: 'register-link link',
+    events: {
+      click: (event: Event) => {
+        event.preventDefault()
+        router.go('/sign-up')
+      },
+    },
+  }),
+}

@@ -5,12 +5,16 @@ enum METHODS {
   DELETE = 'DELETE',
 }
 
-type Options = {
-  headers?: { [key: string]: string }
-  data?: { [key: string]: string }
-  timeout?: number
-  method: METHODS
-}
+type Options =
+  | {
+      headers?: { [key: string]: string }
+      data?: { [key: string]: string } | any
+      timeout?: number
+      method?: METHODS
+      title?: string
+      content_type?: string
+    }
+  | any
 
 function queryStringify(data: { [key: string]: string }) {
   if (typeof data !== 'object') {
@@ -27,25 +31,34 @@ function queryStringify(data: { [key: string]: string }) {
   )
 }
 
-class HTTPTransport {
-  get = (url: string, options: Options) => {
-    return this.request(url, { ...options, method: METHODS.GET }, options.timeout)
+type HTTPMethod = (url: string, options?: Options) => Promise<any>
+
+export class HTTPTransport {
+  static API_URL = 'https://ya-praktikum.tech/api/v2'
+
+  url: string
+  constructor(url: string) {
+    this.url = `${HTTPTransport.API_URL}${url}`
   }
 
-  put = (url: string, options: Options) => {
-    return this.request(url, { ...options, method: METHODS.PUT }, options.timeout)
-  }
+  get: HTTPMethod = (url, options = {}) =>
+    this.request(this.url + url, { ...options, method: METHODS.GET }, options?.timeout)
 
-  post = (url: string, options: Options) => {
-    return this.request(url, { ...options, method: METHODS.POST }, options.timeout)
-  }
+  put: HTTPMethod = (url, options = {}) =>
+    this.request(this.url + url, { ...options, method: METHODS.PUT }, options?.timeout)
 
-  delete = (url: string, options: Options) => {
-    return this.request(url, { ...options, method: METHODS.DELETE }, options.timeout)
-  }
+  post: HTTPMethod = (url, options = {}) =>
+    this.request(this.url + url, { ...options, method: METHODS.POST }, options?.timeout)
 
-  request = (url: string, options: Options, timeout: number = 5000) => {
-    const { data, headers, method } = options
+  delete: HTTPMethod = (url, options = {}) =>
+    this.request(this.url + url, { ...options, method: METHODS.DELETE }, options?.timeout)
+
+  request = (
+    url: string,
+    options: Options = { method: METHODS.GET, content_type: 'json' },
+    timeout: number = 5000
+  ) => {
+    const { data, headers, method, content_type } = options
 
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest()
@@ -67,11 +80,19 @@ class HTTPTransport {
 
       xhr.timeout = timeout
       xhr.ontimeout = reject
+      xhr.withCredentials = true
+      xhr.responseType = 'json'
 
       if (method === METHODS.GET || !data) {
         xhr.send()
       } else {
-        xhr.send(data as any)
+        if (content_type === 'multipart/form-data') {
+          xhr.send(data)
+          return
+        }
+
+        xhr.setRequestHeader('Content-Type', 'application/json')
+        xhr.send(JSON.stringify(data))
       }
     })
   }

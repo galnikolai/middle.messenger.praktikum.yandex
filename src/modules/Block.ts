@@ -1,13 +1,14 @@
 import EventBus from './EventBus'
 import { v4 as makeUUID } from 'uuid'
 import Handlebars from 'handlebars'
+import { isEqual } from '../utils/api'
 
 interface Meta {
   tagName: string
   props: any
 }
 
-interface BlockProps {
+export interface BlockProps {
   [key: string]: any
 }
 
@@ -33,6 +34,7 @@ class Block {
   static EVENTS = {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
+    FLOW_CDU: 'flow:component-did-update',
     FLOW_RENDER: 'flow:render',
   }
 
@@ -72,6 +74,7 @@ class Block {
   private _registerEvents(eventBus: EventBus) {
     eventBus.on(Block.EVENTS.INIT, this.init.bind(this))
     eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this))
+    eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this))
     eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this))
   }
 
@@ -95,9 +98,11 @@ class Block {
     this._eventBus.emit(Block.EVENTS.FLOW_CDM)
   }
 
-  // private _componentDidUpdate(oldProps: BlockProps, newProps: BlockProps): boolean {
-  //   return true
-  // }
+  private _componentDidUpdate(oldProps: BlockProps, newProps: Partial<BlockProps>) {
+    if (this.componentDidUpdate(oldProps, newProps)) {
+      this._eventBus.emit(Block.EVENTS.FLOW_RENDER)
+    }
+  }
 
   compile(
     template: string,
@@ -168,7 +173,7 @@ class Block {
     const { events = {} } = this.props
 
     Object.keys(events).forEach((eventName) => {
-      if (eventName === 'blur') {
+      if (eventName === 'blur' || eventName === 'change') {
         this._element
           ?.getElementsByTagName('input')[0]
           .addEventListener(eventName, events[eventName])
@@ -183,7 +188,7 @@ class Block {
     const { events = {} } = this.props
 
     Object.keys(events).forEach((eventName) => {
-      if (eventName === 'blur' && this._element) {
+      if ((eventName === 'blur' || eventName === 'change') && this._element) {
         this._element.removeEventListener(eventName, events[eventName])
       }
 
@@ -193,9 +198,13 @@ class Block {
     })
   }
 
-  // componentDidUpdate(oldProps: BlockProps, newProps: BlockProps) {
-  //   return true
-  // }
+  protected componentDidUpdate(oldProps: BlockProps, newProps: Partial<BlockProps>) {
+    return !isEqual(oldProps, newProps)
+  }
+
+  protected createDocumentElement(tagName: string) {
+    return this._createDocumentElement(tagName)
+  }
 
   setProps = (nextProps: any) => {
     if (!nextProps) {
@@ -203,6 +212,7 @@ class Block {
     }
 
     Object.assign(this.props, nextProps)
+    this._componentDidUpdate(this.props, nextProps)
   }
 
   get element(): HTMLElement | null {
@@ -270,17 +280,17 @@ class Block {
   }
 
   show() {
-    const content = this.getContent()
-    if (content) {
-      content.style.display = 'block'
-    }
+    // const content = this.getContent()
+    // if (content) {
+    //   content.style.display = 'block'
+    // }
   }
 
   hide() {
-    const content = this.getContent()
-    if (content) {
-      content.style.display = 'none'
-    }
+    // const content = this.getContent()
+    // if (content) {
+    //   content.style.display = 'none'
+    // }
   }
 }
 

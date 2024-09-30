@@ -1,5 +1,6 @@
 import { template } from './template'
 import Block from '../../modules/Block'
+import { store } from '../../modules/Store'
 
 export type ValidationKeys =
   | 'first_name'
@@ -40,20 +41,30 @@ export const errorMessages: Record<ValidationKeys, string> = {
 }
 
 interface FieldProps {
-  name: string
+  name?: string
   label?: string
   required?: boolean
   type?: string
   className?: string
   events?: any
   placeholder?: string
+  id?: number | string
+  acept?: string
+  parentKey?: string
 }
 export default class Field extends Block {
   constructor(props: FieldProps) {
     const newProps = {
       ...props,
       events: {
+        change: (event: any) => {
+          event.stopPropagation()
+          props?.events?.change(event)
+          store.set(`${props.parentKey}.` + props.name, event.target.value)
+        },
         blur: (event: any) => {
+          event.preventDefault()
+
           if (event?.target) {
             const fieldName: ValidationKeys = event.target.name
             const value = event.target.value
@@ -86,7 +97,7 @@ export default class Field extends Block {
       },
     }
 
-    super('div', newProps)
+    super('span', newProps)
   }
 
   render() {

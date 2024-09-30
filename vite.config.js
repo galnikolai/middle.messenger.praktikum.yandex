@@ -8,18 +8,18 @@ export default defineConfig({
     outDir: resolve(__dirname, 'dist'),
     emptyOutDir: true,
     rollupOptions: {
-      input: {
-        index: resolve(__dirname, './src/index.html'),
-        signin: resolve(__dirname, './src/pages/auth/signin/signin.html'),
-        login: resolve(__dirname, './src/pages/auth/login/login.html'),
-        chats: resolve(__dirname, './src/pages/chats/chats.html'),
-        profile: resolve(__dirname, './src/pages/settings/profile/profile.html'),
-        password: resolve(__dirname, './src/pages/settings/password/password.html'),
-        404: resolve(__dirname, './src/pages/errors/404/404.html'),
-        500: resolve(__dirname, './src/pages/errors/500/500.html'),
+      input: resolve(__dirname, './src/index.html'),
+      output: {
+        format: 'es',
+        strict: false,
+        dir: 'dist/',
+        entryFileNames: `assets/[name].js`,
+        chunkFileNames: `assets/[name].js`,
+        assetFileNames: `assets/[name].[ext]`,
       },
     },
   },
+
   server: {
     port: 3000,
     open: true,

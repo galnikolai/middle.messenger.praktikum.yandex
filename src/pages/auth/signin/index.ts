@@ -1,8 +1,8 @@
-import { Form, Field, Button, Link } from '../../../components'
-import { render } from '../../../utils/renderDOM'
-import Auth from '../Auth'
+import { Form, Field, Button } from '../../../components'
+import { authController } from '../../../controllers/auth-controller'
+import { router } from '../../../modules/Router'
 
-const signin = new Auth({
+export const signin = {
   title: 'Registration',
   form: new Form({
     fields: [
@@ -17,7 +17,7 @@ const signin = new Auth({
         required: true,
       }),
       new Field({
-        name: 'name',
+        name: 'first_name',
         label: 'Name',
         required: true,
       }),
@@ -36,22 +36,28 @@ const signin = new Auth({
         label: 'Password',
         required: true,
       }),
-      new Field({
-        name: 'password-repeat',
-        label: 'Password (repeat)',
-        required: true,
-      }),
       new Button({
         text: 'Sign up',
         className: 'save-changes',
         type: 'submit',
       }),
     ],
+    events: {
+      submit: (data: any) => {
+        authController.signup(data)
+      },
+    },
   }),
-  link: new Link({
-    text: 'Sign in',
-    href: '/pages/auth/login/login',
-  }),
-})
 
-render('.app', signin)
+  link: new Button({
+    text: 'Sign in',
+    className: 'link',
+    events: {
+      click: (event: Event) => {
+        console.log(event)
+        event.preventDefault()
+        router.go('/')
+      },
+    },
+  }),
+}
