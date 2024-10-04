@@ -1,5 +1,8 @@
 {
-    "extension": ["ts"],
-    "spec": "test/**/*.spec.ts",
-    "require": "test/babel-register.js"
-  }
+  "extensions": ["ts"],
+  "spec": ["**/*.spec.*"],
+  "node-option": [
+    "experimental-specifier-resolution=node",
+    "loader=ts-node/esm"
+  ]
+}

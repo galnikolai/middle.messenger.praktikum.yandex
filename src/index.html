@@ -5,25 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ya Messenger</title>
     <link rel="stylesheet" href="styles/styles.less" />
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mocha/3.2.0/mocha.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mocha/3.2.0/mocha.js"></script>
-    <script>
-      mocha.setup('bdd')
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/chai/3.5.0/chai.js"></script>
   </head>
   <body>
-    <div id="mocha"></div>
-
-    <!-- порядок важен -->
-    <script src="sum.js"></script>
-    <script src="test.js"></script>
-
-    <script>
-      mocha.run() // Запуск тестов
-    </script>
-
     <div class="app container"></div>
     <script type="module" src="./index.ts"></script>
   </body>
