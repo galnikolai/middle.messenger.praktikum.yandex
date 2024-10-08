@@ -1,6 +1,6 @@
 import { Form, Field, Button } from '../../../components'
 import { authController } from '../../../controllers/auth-controller'
-import { router } from '../../../modules/Router'
+import { Routes, router } from '../../../modules/Router'
 
 export const signin = {
   title: 'Registration',
@@ -54,9 +54,8 @@ export const signin = {
     className: 'link',
     events: {
       click: (event: Event) => {
-        console.log(event)
         event.preventDefault()
-        router.go('/')
+        router.go(Routes.LogIn)
       },
     },
   }),

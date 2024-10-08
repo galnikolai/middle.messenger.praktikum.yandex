@@ -1,7 +1,7 @@
 import { Button, Form, Field } from '../../../components'
 import Avatar from '../../../components/avatar/Avatar'
 import { userController } from '../../../controllers/user-controller'
-import { router } from '../../../modules/Router'
+import { Routes, router } from '../../../modules/Router'
 
 export const password = {
   avatar: new Avatar({
@@ -77,9 +77,8 @@ export const password = {
     className: 'back link',
     events: {
       click: (event: Event) => {
-        console.log(event)
         event.preventDefault()
-        router.go('/settings')
+        router.go(Routes.Settings)
       },
     },
   }),

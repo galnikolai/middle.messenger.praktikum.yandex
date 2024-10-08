@@ -8,6 +8,10 @@ export enum Routes {
   LogIn = '/',
   SignUp = '/sign-up',
   Messenger = '/messenger',
+  Settings = '/settings',
+  SettingsPassword = '/settings/password',
+  NotFound = '/not-found',
+  ServerError = '/server-error',
 }
 class Route {
   _pathname: string
@@ -53,7 +57,7 @@ class Route {
   }
 }
 
-class Router {
+export class Router {
   _currentRoute: any
   routes: any
   _rootQuery: any
@@ -96,21 +100,25 @@ class Router {
       this._currentRoute.leave()
     }
 
+    if (!route) {
+      this.go(Routes.NotFound)
+    }
+    console.log(pathname, this.routes)
     this._currentRoute = route
     route.render(route, pathname)
   }
 
   go(pathname: string) {
-    history.pushState({}, '', pathname)
+    this.history.pushState({}, '', pathname)
     this._onRoute(pathname)
   }
 
   back() {
-    history.back()
+    this.history.back()
   }
 
   forward() {
-    history.forward()
+    this.history.forward()
   }
 
   getRoute(pathname: string) {

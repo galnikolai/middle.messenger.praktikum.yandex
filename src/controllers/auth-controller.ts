@@ -61,7 +61,7 @@ export class AuthController {
       const { response }: { response: User } = data
 
       const authRoutes =
-        document.location.pathname === '/' || document.location.pathname === '/sign-up'
+        document.location.pathname === Routes.LogIn || document.location.pathname === Routes.SignUp
 
       if (!response?.reason && authRoutes) {
         router.go(Routes.Messenger)

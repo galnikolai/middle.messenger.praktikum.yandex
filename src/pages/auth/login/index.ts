@@ -1,7 +1,7 @@
 import { SigninData } from '../../../api/auth-api'
 import { Form, Field, Button } from '../../../components'
 import { authController } from '../../../controllers/auth-controller'
-import { router } from '../../../modules/Router'
+import { Routes, router } from '../../../modules/Router'
 
 export const login = {
   title: 'Signin',
@@ -36,7 +36,7 @@ export const login = {
     events: {
       click: (event: Event) => {
         event.preventDefault()
-        router.go('/sign-up')
+        router.go(Routes.SignUp)
       },
     },
   }),

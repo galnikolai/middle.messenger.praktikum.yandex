@@ -94,8 +94,12 @@ class Block {
 
   protected componentDidMount() {} // oldProps?: BlockProps
 
-  protected dispatchComponentDidMount() {
+  protected _dispatchComponentDidMount() {
     this._eventBus.emit(Block.EVENTS.FLOW_CDM)
+  }
+
+  dispatchComponentDidMount() {
+    this._dispatchComponentDidMount()
   }
 
   private _componentDidUpdate(oldProps: BlockProps, newProps: Partial<BlockProps>) {

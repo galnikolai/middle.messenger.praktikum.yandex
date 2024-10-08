@@ -8,7 +8,7 @@ export function render(query: string, block: BlockProps) {
     root.appendChild(block.getContent())
   }
 
-  block.dispatchComponentDidMount()
+  // block.dispatchComponentDidMount()
 
   return root
 }

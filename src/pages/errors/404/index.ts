@@ -1,15 +1,12 @@
 import { Link } from '../../../components'
-import { render } from '../../../utils/renderDOM'
-import Error from '../Error'
+import { Routes } from '../../../modules/Router'
 
-const notfound = new Error({
+export const notfound = {
   title: '404',
   description: 'Page no found',
   link: new Link({
     text: 'Back to chats',
     className: 'refresh-link',
-    href: '/pages/chats/chats',
+    href: Routes.Messenger,
   }),
-})
-
-render('.app', notfound)
+}
