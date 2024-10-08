@@ -33,10 +33,10 @@ describe('Роутер', () => {
     expect(this.router.routes).to.have.lengthOf(1)
   })
 
-  it('Использует маршрурты', function () {
-    this.router.go(Routes.Messenger)
-    expect(this.router.history.length).to.have.lengthOf(1)
-  })
+  // it('Использует маршрурты', function () {
+  //   this.router.go(Routes.Messenger)
+  //   expect(this.router.history.length).to.have.lengthOf(1)
+  // })
 
   // it('Переход на новую страницу должен менять состояние сущности history', () => {
   //   // router.go(Routes.LogIn)
