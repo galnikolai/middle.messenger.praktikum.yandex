@@ -10,7 +10,9 @@
     "preview": "vite preview --port 3000",
     "start": "npm run build && npm run preview ",
     "lint:css": "stylelint '**/*.less'",
-    "test": "mocha -r jsdom-global/register"
+    "test": "mocha -r jsdom-global/register",
+    "prepare": "husky install",
+    "pre-commit": "npm run eslint && npm run stylelint && npm run test"
   },
   "devDependencies": {
     "@eslint/js": "^9.7.0",
@@ -23,6 +25,7 @@
     "eslint": "^8.57.0",
     "eslint-config-google": "^0.14.0",
     "globals": "^15.8.0",
+    "husky": "^9.1.6",
     "jsdom": "25.0.1",
     "jsdom-global": "3.0.2",
     "less": "^4.2.0",
@@ -38,6 +41,7 @@
   },
   "dependencies": {
     "lodash-es": "^4.17.21",
+    "surge": "^0.24.6",
     "uuid": "^10.0.0",
     "vite-plugin-handlebars": "^2.0.0"
   },
