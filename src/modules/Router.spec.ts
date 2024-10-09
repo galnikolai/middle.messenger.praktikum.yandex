@@ -27,7 +27,7 @@ describe('Router', () => {
     }
   })
 
-  it('use: должен регистрировать маршруты', () => {
+  it('use: регистрация маршрута', () => {
     router.use(Routes.LogIn, MockBlock, {})
     router.use(Routes.SignUp, MockBlock, {})
 
@@ -36,14 +36,14 @@ describe('Router', () => {
     expect(router.routes[1]._pathname).to.equal(Routes.SignUp)
   })
 
-  it('start: должен инициализировать первый маршрут', () => {
+  it('start: инициализация первого маршрута', () => {
     router.use(Routes.LogIn, MockBlock, {})
     router.start()
 
     expect(router._currentRoute._pathname).to.equal(Routes.LogIn)
   })
 
-  it('go: должен переходить на другой маршрут', () => {
+  it('go: переход на другой маршрут', () => {
     router.use(Routes.LogIn, MockBlock, {})
     router.use(Routes.SignUp, MockBlock, {})
     router.start()
@@ -53,7 +53,7 @@ describe('Router', () => {
     expect(router._currentRoute._pathname).to.equal(Routes.SignUp)
   })
 
-  it('getRoute: должен находить маршрут по заданному пути', () => {
+  it('getRoute: поиск маршрута по заданному пути', () => {
     router.use(Routes.LogIn, MockBlock, {})
     router.use(Routes.SignUp, MockBlock, {})
 
@@ -61,7 +61,7 @@ describe('Router', () => {
     expect(route._pathname).to.equal(Routes.SignUp)
   })
 
-  it('not found: должен использовать маршрут NotFound, если маршрут не найден', () => {
+  it('not found: редирект на NotFound, если маршрут не найден', () => {
     router.use(Routes.NotFound, MockBlock, {})
     router.start()
 
@@ -70,7 +70,7 @@ describe('Router', () => {
     expect(router._currentRoute._pathname).to.equal(Routes.NotFound)
   })
 
-  // it('должен корректно управлять историей навигации', () => {
+  // it('управление историей навигации', () => {
   //   router.use(Routes.LogIn, MockBlock, {})
   //   router.use(Routes.SignUp, MockBlock, {})
   //   router.start()
@@ -85,7 +85,7 @@ describe('Router', () => {
   //   expect(router._currentRoute._pathname).to.equal(Routes.SignUp)
   // })
 
-  // it('должен вызывать метод leave() при переходе на другой маршрут', () => {
+  // it('вызов метода leave() при переходе на другой маршрут', () => {
   //   const mockBlock = new MockBlock({})
   //   router.use(Routes.LogIn, MockBlock, {})
   //   router.use(Routes.SignUp, () => mockBlock, {})

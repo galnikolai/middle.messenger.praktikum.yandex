@@ -39,7 +39,7 @@ export class HTTPTransport {
     this.url = `${API_URL}${url}`
   }
 
-  get: HTTPMethod = (url, options: Options = {}) =>
+  get: HTTPMethod = (url, options = {}) =>
     this.request(this.url + url, { ...options, method: METHODS.GET }, options?.timeout)
 
   put: HTTPMethod = (url: string, options = {}) =>

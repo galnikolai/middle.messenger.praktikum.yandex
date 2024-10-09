@@ -54,17 +54,14 @@
   "engines": {
     "node": ">=18"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm-run-all test lint stylelint",
-      "pre-push": "npm run build && npm run test"
-    }
-  },
   "lint-staged": {
     "src/**/*.{js,jsx,tsx}": [
       "eslint . --ext .ts,.js",
       "stylelint '**/*.less",
       "prettier --write"
+    ],
+    "src/**/*.{css,scss,less}": [
+      "stylelint '**/*.less"
     ]
   }
 }
