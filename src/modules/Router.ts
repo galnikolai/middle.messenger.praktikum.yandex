@@ -42,7 +42,7 @@ class Route {
     }
   }
 
-  match(pathname: string) {
+  match(pathname: string | URL | null | undefined) {
     return isEqual(pathname, this._pathname)
   }
 
@@ -92,9 +92,8 @@ export class Router {
     this._onRoute(window.location.pathname)
   }
 
-  _onRoute(pathname: string) {
+  _onRoute(pathname: string | URL | null | undefined) {
     const route = this.getRoute(pathname)
-
     if (this._currentRoute && !this.getRoute(this._currentRoute.match(pathname))) {
       this._currentRoute.leave()
     }
@@ -121,7 +120,7 @@ export class Router {
     this.history.forward()
   }
 
-  getRoute(pathname: string): string | undefined | any {
+  getRoute(pathname: string | URL | null | undefined): string | undefined | any {
     return this.routes.find((route: Route) => route.match(pathname))
   }
 }

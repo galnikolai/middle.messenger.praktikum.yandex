@@ -1,158 +1,109 @@
-// import { expect } from 'chai'
-// import Sinon from 'sinon'
-// import Block, { BlockProps } from './Block'
+import { expect } from 'chai'
+import sinon from 'sinon'
 
-// class TestBlock extends Block {
-//   render() {
-//     return this.compile('<div></div>', this.props)
-//   }
-// }
+import Block from './Block'
+import EventBus from './EventBus'
 
-// describe('Block', () => {
-//   describe('Создание экземпляра', () => {
-//     it('должен создаваться без ошибок', () => {
-//       const block = new TestBlock()
-//       expect(block).to.be.instanceOf(Block)
-//     })
-//   })
+describe('Block', () => {
+  let blockInstance: any
+  let eventBusSpy: any
 
-//   describe('Обработка пропсов', () => {
-//     it('должен правильно устанавливать и получать пропсы', () => {
-//       const props: any = { testProp: 'value' }
-//       const block = new TestBlock(props)
-//       expect(block.props.testProp).to.equal('value')
-//     })
+  beforeEach(() => {
+    eventBusSpy = sinon.spy(EventBus.prototype, 'emit')
+    blockInstance = new Block('div', { testProp: 'testValue' })
+  })
 
-//     it('должен вызывать componentDidUpdate при обновлении пропсов', () => {
-//       const props: any = { testProp: 'initial' }
+  afterEach(() => {
+    sinon.restore()
+  })
 
-//       const block = new TestBlock(props)
-//       const componentDidUpdateSpy = Sinon.spy(block, 'componentDidUpdate')
-//       block.setProps({ testProp: 'updated' })
-//       expect(componentDidUpdateSpy.calledOnce).to.be.true
-//       componentDidUpdateSpy.restore()
-//     })
-//   })
+  it('Инициализироваться с переданными пропсами', () => {
+    expect(blockInstance.props.testProp).to.equal('testValue')
+  })
 
-//   describe('Управление событиями', () => {
-//     it('должен добавлять обработчики событий', () => {
-//       const onClick = Sinon.spy()
-//       const props: any = {
-//         events: {
-//           click: onClick,
-//         },
-//       }
-//       const block = new TestBlock(props)
-//       const element = block.getContent()
-//       expect(element).to.not.be.null
-//       element?.dispatchEvent(new window.Event('click'))
-//       expect(onClick.calledOnce).to.be.true
-//     })
+  it('Вызов метод "init" при инициализации', () => {
+    expect(eventBusSpy.calledWith(Block.EVENTS.INIT)).to.be.true
+  })
 
-//     it('должен удалять обработчики событий при обновлении элемента', () => {
-//       const onClick = sinon.spy()
-//       const props: any = {
-//         events: {
-//           click: onClick,
-//         },
-//       }
-//       const block = new TestBlock(props)
-//       const element = block.getContent()
-//       expect(element).to.not.be.null
-//       block.setProps({ someProp: 'newValue' })
-//       element?.dispatchEvent(new window.Event('click'))
-//       expect(onClick.calledTwice).to.be.false
-//     })
-//   })
+  it('Генерация уникальный ID', () => {
+    expect(blockInstance['_id']).to.be.a('string')
+  })
 
-//   describe('Обработка атрибутов', () => {
-//     it('должен устанавливать атрибуты на элементе', () => {
-//       const props: any = {
-//         attr: {
-//           id: 'test-id',
-//           class: 'test-class',
-//         },
-//       }
-//       const block = new TestBlock(props)
-//       const element = block.getContent()
-//       expect(element?.getAttribute('id')).to.equal('test-id')
-//       expect(element?.getAttribute('class')).to.equal('test-class')
-//     })
-//   })
+  it('Создание DOM-элемент в _createResources()', () => {
+    blockInstance['init']()
+    expect(blockInstance.element).to.be.an.instanceOf(window.HTMLElement)
+  })
 
-//   describe('Рендеринг', () => {
-//     it('должен рендерить шаблон с пропсами', () => {
-//       const props: any = { content: 'Hello World' }
-//       const block = new TestBlock(props)
-//       const element = block.getContent()
-//       expect(element?.outerHTML).to.equal('<div>Hello World</div>')
-//     })
+  it('Вызов componentDidMount при вызове dispatchComponentDidMount()', () => {
+    const componentDidMountSpy = sinon.spy(blockInstance, 'componentDidMount')
+    blockInstance.dispatchComponentDidMount()
+    expect(componentDidMountSpy.calledOnce).to.be.true
+  })
 
-//     it('должен обновлять элемент при изменении пропсов', () => {
-//       const props: any = { content: 'Initial' }
-//       const block = new TestBlock(props)
-//       block.setProps({ content: 'Updated' })
-//       const element = block.getContent()
-//       expect(element?.outerHTML).to.equal('<div>Updated</div>')
-//     })
-//   })
+  it('Вызов render при обновлении пропсов', () => {
+    const renderSpy = sinon.spy(blockInstance, 'render')
+    blockInstance.setProps({ newProp: 'newValue' })
+    expect(renderSpy.calledOnce).to.be.true
+  })
 
-//   describe('Методы жизненного цикла', () => {
-//     it('должен вызывать componentDidMount после инициализации', () => {
-//       const componentDidMountSpy = Sinon.spy(Block.prototype, 'componentDidMount')
-//       const block = new TestBlock()
-//       block.dispatchComponentDidMount()
-//       expect(componentDidMountSpy.calledOnce).to.be.true
-//       componentDidMountSpy.restore()
-//     })
+  it('Создание DOM-элемент через _createDocumentElement()', () => {
+    const element = blockInstance['_createDocumentElement']('span')
+    expect(element.tagName).to.equal('SPAN')
+  })
 
-//     it('должен вызывать componentDidUnmount при размонтировании', () => {
-//       const componentDidUnmountSpy = Sinon.spy(
-//         Block.prototype,
-//         'componentDidUnmount' as keyof TestBlock
-//       )
-//       const block = new TestBlock()
-//       block.dispatchComponentDidUnmount()
-//       expect(componentDidUnmountSpy.calledOnce).to.be.true
-//       componentDidUnmountSpy.restore()
-//     })
-//   })
+  it('Генерация HTML-контент в compile()', () => {
+    const template = '<div>{{testProp}}</div>'
+    const fragment = blockInstance.compile(template, blockInstance.props)
 
-//   describe('Дочерние компоненты', () => {
-//     class ChildBlock extends Block {
-//       render() {
-//         return this.compile('<div></div>', this.props)
-//       }
-//     }
+    expect(fragment.textContent).to.equal('testValue')
+  })
 
-//     class ParentBlock extends Block {
-//       render() {
-//         return this.compile('<div></div>', this.props)
-//       }
-//     }
+  it('Регистрация события через _addEvents()', () => {
+    const mockElement = document.createElement('div')
+    blockInstance['_element'] = mockElement
+    blockInstance.props.events = { click: sinon.spy() }
 
-//     it('должен рендерить дочерние компоненты', () => {
-//       const child: any = new ChildBlock()
-//       const parent = new ParentBlock({ child })
-//       const element = parent.getContent()
-//       expect(element?.outerHTML).to.equal('<div><span>Child</span></div>')
-//     })
-//   })
+    blockInstance['_addEvents']()
+    mockElement.click()
 
-//   describe('Методы видимости', () => {
-//     it('должен отображать элемент', () => {
-//       const block = new TestBlock()
-//       block.hide()
-//       block.show()
-//       const element = block.getContent()
-//       expect(element?.style.display).to.equal('block')
-//     })
+    expect(blockInstance.props.events.click.calledOnce).to.be.true
+  })
 
-//     it('должен скрывать элемент', () => {
-//       const block = new TestBlock()
-//       block.hide()
-//       const element = block.getContent()
-//       expect(element?.style.display).to.equal('none')
-//     })
-//   })
-// })
+  it('Удаление события через _removeEvents()', () => {
+    const mockElement = document.createElement('div')
+    const clickSpy = sinon.spy()
+    blockInstance['_element'] = mockElement
+    blockInstance.props.events = { click: clickSpy }
+
+    blockInstance['_addEvents']()
+    blockInstance['_removeEvents']()
+
+    mockElement.click()
+    expect(clickSpy.notCalled).to.be.true
+  })
+
+  //   it('Скрытие элемента через hide()', () => {
+  //     blockInstance.hide()
+  //     expect(blockInstance.element?.style.display).to.equal('none')
+  //   })
+
+  //   it('Отображение элемента через show()', () => {
+  //     blockInstance.show()
+  //     expect(blockInstance.element?.style.display).to.equal('block')
+  //   })
+
+  //   it('Реакция на вызов dispatchComponentDidMount()', () => {
+  //     const spy = sinon.spy(blockInstance, '_componentDidMount')
+  //     blockInstance.dispatchComponentDidMount()
+  //     expect(spy.calledOnce).to.be.true
+  //   })
+  //   it('Обгновление пропсов и вызов _componentDidUpdate()', () => {
+  //     const componentDidUpdateSpy = sinon.spy(blockInstance, '_componentDidUpdate')
+  //     const oldProps = blockInstance.props
+  //     blockInstance.setProps({ newProp: 'newValue' })
+
+  //     expect(componentDidUpdateSpy.calledOnce).to.be.true
+  //     expect(blockInstance.props.newProp).to.equal('newValue')
+  //     expect(oldProps).to.not.equal(blockInstance.props)
+  //   })
+})

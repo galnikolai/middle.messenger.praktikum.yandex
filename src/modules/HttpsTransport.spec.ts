@@ -3,7 +3,7 @@ import { expect } from 'chai'
 import BaseAPI from '../api/base-api'
 import { SignupData } from '../api/auth-api'
 
-class TestBlock extends BaseAPI {
+class MockBlock extends BaseAPI {
   constructor() {
     super('')
   }
@@ -37,10 +37,10 @@ class TestBlock extends BaseAPI {
   delete = undefined
   read = undefined
 }
-describe('Http', () => {
-  const api = new TestBlock()
+describe('HTTPTransport', () => {
+  const api = new MockBlock()
   let chatId = ''
-  it('Post: регистрация', async () => {
+  it('post: регистрация', async () => {
     try {
       const { response }: any = await api.signup({
         first_name: 'John',
@@ -63,7 +63,7 @@ describe('Http', () => {
     }
   })
 
-  it('Post: создание чата', async () => {
+  it('post: создание чата', async () => {
     try {
       const { response }: any = await api.createChat({ title: 'Qwertyuiop' })
 
@@ -80,7 +80,7 @@ describe('Http', () => {
     }
   })
 
-  it('Put: пустой список участников', async () => {
+  it('put: пустой список участников', async () => {
     try {
       const { response }: any = await api.users({ chatId: chatId })
       expect(response).to.be.an('null')
@@ -94,7 +94,7 @@ describe('Http', () => {
     }
   })
 
-  it('Get: список чатов', async () => {
+  it('get: список чатов', async () => {
     try {
       const { response }: any = await api.getChats()
       expect(response).to.be.an('array')
@@ -109,7 +109,7 @@ describe('Http', () => {
     }
   })
 
-  it('Delete: удаление чата', async () => {
+  it('delete: удаление чата', async () => {
     try {
       const { response }: any = await api.deleteChat({ chatId })
 
