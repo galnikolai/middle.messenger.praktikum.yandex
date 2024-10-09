@@ -47,7 +47,6 @@
   "dependencies": {
     "express": "^4.21.1",
     "lodash-es": "^4.17.21",
-    "npx": "^3.0.0",
     "uuid": "^10.0.0",
     "vite-plugin-handlebars": "^2.0.0"
   },
