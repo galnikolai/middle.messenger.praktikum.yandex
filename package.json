@@ -32,7 +32,7 @@
     "less": "^4.2.0",
     "lint-staged": "^15.2.10",
     "mocha": "^10.7.3",
-    "mocha-jsdom": "^2.0.0",
+    "mocha-jsdom": "^1.2.0",
     "sinon": "^19.0.2",
     "stylelint": "^16.7.0",
     "stylelint-config-standard": "^36.0.1",
@@ -45,8 +45,8 @@
   },
   "dependencies": {
     "lodash-es": "^4.17.21",
-    "npx": "^10.2.2",
-    "surge": "^0.24.6",
+    "npx": "^3.0.0",
+    "surge": "^0.0.0",
     "uuid": "^10.0.0",
     "vite-plugin-handlebars": "^2.0.0"
   },
