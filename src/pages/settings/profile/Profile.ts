@@ -1,7 +1,7 @@
 import { authController } from '../../../controllers/auth-controller'
 
 import Block, { BlockProps } from '../../../modules/Block'
-import { State, withStore } from '../../../modules/Store'
+import { withStore } from '../../../modules/Store'
 
 import { template } from './template'
 
@@ -29,7 +29,7 @@ class ProfileBase extends Block {
   }
 }
 
-const withProfile = withStore((state: State) => {
+const withProfile: any = withStore((state: any) => {
   return { user: state.user || {} }
 })
 
