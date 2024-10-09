@@ -60,5 +60,13 @@
       "pre-commit": "npm-run-all test lint stylelint",
       "pre-push": "npm run build && npm run test"
     }
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx}": [
+      "eslint . --ext .ts,.js",
+      "stylelint '**/*.less",
+      "prettier --write",
+      "git add"
+    ]
   }
 }
