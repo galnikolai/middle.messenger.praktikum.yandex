@@ -7,7 +7,6 @@ export const usersList = {
     events: {
       change: (event: any) => {
         event.preventDefault()
-        // console.log(event.target.value)
         userController.searchUsers(event?.target?.value || '')
       },
     },
