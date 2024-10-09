@@ -56,7 +56,6 @@
   "lint-staged": {
     "src/**/*.{js,jsx,tsx}": [
       "eslint . --ext .ts,.js",
-      "stylelint '**/*.less",
       "prettier --write"
     ],
     "src/**/*.{css,scss,less}": [
