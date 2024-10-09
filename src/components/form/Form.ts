@@ -47,7 +47,7 @@ export default class Form extends Block {
           })
 
           if (errors.length) {
-            console.log(' Field errors')
+            console.log('Field errors')
           }
           const formObject: { [key: string]: FormDataEntryValue } = {}
           const formData = new FormData(event.target as HTMLFormElement)
