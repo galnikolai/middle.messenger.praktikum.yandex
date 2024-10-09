@@ -47,14 +47,12 @@ class Route {
   }
 
   render() {
-    // if (!this._block) {
+    if (typeof this._blockClass !== 'function') {
+      throw new Error(`_blockClass is not a valid constructor: ${this._blockClass}`)
+    }
     this._block = new this._blockClass(this._blockProps)
-
     render(this._props.rootQuery, this._block)
     return
-    // }
-
-    // this._block.show()
   }
 }
 

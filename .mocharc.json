@@ -1,6 +1,7 @@
 {
   "extensions": ["ts"],
   "loader": "ts-node/esm",
+  "require": ["./mocha-default.mjs"],
   "spec": ["**/*.spec.*"],
   "node-option": [
     "experimental-specifier-resolution=node",

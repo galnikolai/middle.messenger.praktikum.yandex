@@ -32,13 +32,11 @@ function queryStringify(data: { [key: string]: string }) {
 }
 
 type HTTPMethod = (url: string, options?: Options) => Promise<any>
-
+export const API_URL = 'https://ya-praktikum.tech/api/v2'
 export class HTTPTransport {
-  static API_URL = 'https://ya-praktikum.tech/api/v2'
-
   url: string
   constructor(url: string) {
-    this.url = `${HTTPTransport.API_URL}${url}`
+    this.url = `${API_URL}${url}`
   }
 
   get: HTTPMethod = (url, options: Options = {}) =>
