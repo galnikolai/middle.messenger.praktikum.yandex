@@ -10,7 +10,7 @@
     "preview": "vite preview --port 3000",
     "start": "npm run build && npm run preview ",
     "lint:css": "stylelint '**/*.less'",
-    "lint:ts": "eslint . -c .ts,.js",
+    "lint:ts": "eslint",
     "test": "mocha -r jsdom-global/register",
     "pre-commit": "npm run lint:ts && npm run lint:css && npm run test"
   },

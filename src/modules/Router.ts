@@ -16,7 +16,7 @@ export enum Routes {
 }
 class Route {
   _pathname: string
-  _blockClass: unknown
+  _blockClass: any
   _block: BlockProps | null
   _props: BlockProps
   _blockProps: BlockProps
@@ -59,11 +59,11 @@ class Route {
 }
 
 export class Router {
-  _currentRoute: string | undefined
-  routes: string[]
+  _currentRoute: string | undefined | any
+  routes: Route[] = []
   _rootQuery: unknown
-  history: History
-  static __instance: unknown
+  history!: History
+  static __instance: any
 
   constructor(rootQuery: string) {
     if (Router.__instance) {
@@ -72,7 +72,7 @@ export class Router {
 
     this.routes = []
     this.history = window.history
-    this._currentRoute = null
+    this._currentRoute = undefined
     this._rootQuery = rootQuery
 
     Router.__instance = this
@@ -85,7 +85,7 @@ export class Router {
   }
 
   start() {
-    window.onpopstate = (event: Event) => {
+    window.onpopstate = (event: Event | any) => {
       if (event) {
         this._onRoute(event?.currentTarget?.location?.pathname)
       }
@@ -103,8 +103,9 @@ export class Router {
 
     if (!route) {
       this.go(Routes.NotFound)
+      return
     }
-    console.log(pathname, this.routes)
+
     this._currentRoute = route
     route.render(route, pathname)
   }
@@ -122,8 +123,8 @@ export class Router {
     this.history.forward()
   }
 
-  getRoute(pathname: string): string | undefined {
-    return this.routes.find((route: string) => route.match(pathname))
+  getRoute(pathname: string): string | undefined | any {
+    return this.routes.find((route: Route) => route.match(pathname))
   }
 }
 

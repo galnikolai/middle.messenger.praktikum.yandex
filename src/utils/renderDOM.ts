@@ -1,9 +1,9 @@
 import { BlockProps } from '../modules/Block'
 
-export function render(query: string, block: BlockProps) {
+export function render(query: string, block: BlockProps | null) {
   const root: null | Element = document.querySelector(query)
 
-  if (root) {
+  if (root && block) {
     root.innerHTML = ''
     root.appendChild(block.getContent())
   }
