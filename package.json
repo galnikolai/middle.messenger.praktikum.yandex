@@ -10,7 +10,7 @@
     "preview": "vite preview --port 3000",
     "start": "npm run build && npm run preview ",
     "lint:css": "stylelint '**/*.less'",
-    "lint:ts": "eslint",
+    "lint:ts": "eslint . --ext .ts,.js",
     "test": "mocha -r jsdom-global/register",
     "prepare": "husky install",
     "postinstall": "husky install"

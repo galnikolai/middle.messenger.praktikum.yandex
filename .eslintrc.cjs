@@ -1,28 +1,35 @@
 module.exports = {
-  env: {
-    browser: true,
-    node: true,
-    es2021: true,
+  parser: '@typescript-eslint/parser',
+  root: true,
+  env: { browser: true, es2020: true },
+  extends: ['plugin:@typescript-eslint/recommended'],
+  parserOptions: {
+    ecmaVersion: 2020,
+    sourceType: 'module',
+    warnOnUnsupportedTypeScriptVersion: false,
+    project: ['**/tsconfig.json'],
+    tsconfigRootDir: __dirname,
   },
-  extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended'],
-  overrides: [
-    {
-      env: {
-        node: true,
-      },
-      files: ['.eslintrc.{js,cjs,ts}'],
-      parserOptions: {
-        sourceType: 'script',
+  settings: {
+    'import/resolver': {
+      node: {
+        extensions: ['.js', '.ts', '.hbs'],
       },
     },
-  ],
-  parser: '@typescript-eslint/parser',
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
   },
   plugins: ['@typescript-eslint'],
   rules: {
+    '@typescript-eslint/no-var-requires': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
+    '@typescript-eslint/no-for-in-array': 'warn',
+    '@typescript-eslint/no-misused-new': 'warn',
+    '@typescript-eslint/no-this-alias': 'off',
+    '@typescript-eslint/strict-boolean-expressions': 'off',
+    '@typescript-eslint/no-unused-vars': 'off',
+    '@typescript-eslint/unified-signatures': 'warn',
     '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/ban-ts-comment': 'error',
+    eqeqeq: ['warn', 'smart'],
   },
+  ignorePatterns: ['dist', '.eslintrc.js'],
 }

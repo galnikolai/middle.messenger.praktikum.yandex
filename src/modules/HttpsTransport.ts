@@ -63,7 +63,7 @@ export class HTTPTransport {
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest()
 
-      xhr.open(method, `${url}${data && method == METHODS.GET ? queryStringify(data) : ''}`)
+      xhr.open(method, `${url}${data && method === METHODS.GET ? queryStringify(data) : ''}`)
 
       if (headers?.length) {
         Object.keys(headers).map((key) => {
