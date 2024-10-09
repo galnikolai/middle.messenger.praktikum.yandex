@@ -39,7 +39,7 @@ export class WSTransport extends EventBus {
     }
   }
 
-  public connect(url: string, callBackState: (data: any) => void) {
+  public connect(url: string, callBackState: (data: unknown) => void) {
     this.socket = new WebSocket(`${WSTransport.WSS_URL}/${url}`)
     // add listeners
     this.subscribe(this.socket, callBackState)
@@ -63,7 +63,7 @@ export class WSTransport extends EventBus {
     })
   }
 
-  private subscribe(socket: WebSocket, callBackState: (data: any) => void) {
+  private subscribe(socket: WebSocket, callBackState: (data: unknown) => void) {
     socket.addEventListener('open', () => this.emit(WSTransportEvents.Connected))
     socket.addEventListener('close', () => this.emit(WSTransportEvents.Close))
     socket.addEventListener('error', (e) => this.emit(WSTransportEvents.Error, e))

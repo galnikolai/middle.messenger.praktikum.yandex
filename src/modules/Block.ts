@@ -5,11 +5,11 @@ import { isEqual } from '../utils/api'
 
 interface Meta {
   tagName: string
-  props: any
+  props: BlockProps
 }
 
-export interface BlockProps {
-  [key: string]: any
+export type BlockProps = {
+  [key in string]: any
 }
 
 class Block {
@@ -102,7 +102,7 @@ class Block {
     this._dispatchComponentDidMount()
   }
 
-  private _componentDidUpdate(oldProps: BlockProps, newProps: Partial<BlockProps>) {
+  private _componentDidUpdate(oldProps: any, newProps: any) {
     if (this.componentDidUpdate(oldProps, newProps)) {
       this._eventBus.emit(Block.EVENTS.FLOW_RENDER)
     }
@@ -144,33 +144,36 @@ class Block {
       }
     )
 
-    const fragment: any = this._createDocumentElement('template')
+    const fragment: HTMLElement = this._createDocumentElement('template')
     const compiledTemplate = Handlebars.compile(template, propsAndStubs)
 
     fragment.innerHTML = compiledTemplate(propsAndStubs)
 
     Object.values(this.children).forEach((child: any) => {
-      const stub = fragment.content.querySelector(`[data-id="${child._id}"]`)
-      stub.replaceWith(child.getContent())
+      const stub = (fragment as HTMLTemplateElement).content.querySelector(
+        `[data-id="${child._id}"]`
+      )
+
+      stub?.replaceWith(child.getContent())
     })
 
     Object.entries(this.lists).forEach(([key, child]) => {
-      const stub = fragment.content.querySelector(`[data-id="${key}"]`)
+      const stub = (fragment as HTMLTemplateElement).content.querySelector(`[data-id="${key}"]`)
 
       if (!stub) return
       const listFragment: any = this._createDocumentElement('template')
 
-      child.forEach((element: any) => {
-        if (element instanceof Block) {
-          listFragment.content.append(element.getContent())
+      child.forEach((el: HTMLElement) => {
+        if (el && el instanceof Block) {
+          listFragment.content.append(el.getContent())
         } else {
-          listFragment.content.append(`${element}`)
+          listFragment.content.append(`${el}`)
         }
       })
 
-      stub.replaceWith(listFragment.content)
+      stub.replaceWith((listFragment as HTMLTemplateElement).content)
     })
-    return fragment.content
+    return (fragment as HTMLTemplateElement).content
   }
 
   private _addEvents() {
@@ -202,7 +205,7 @@ class Block {
     })
   }
 
-  protected componentDidUpdate(oldProps: BlockProps, newProps: Partial<BlockProps>) {
+  protected componentDidUpdate(oldProps: BlockProps, newProps: Partial<BlockProps>): boolean {
     return !isEqual(oldProps, newProps)
   }
 
@@ -210,7 +213,7 @@ class Block {
     return this._createDocumentElement(tagName)
   }
 
-  setProps = (nextProps: any) => {
+  setProps = (nextProps: BlockProps) => {
     if (!nextProps) {
       return
     }
@@ -224,7 +227,7 @@ class Block {
   }
 
   private _render(): void {
-    const block: any = this.render()
+    const block: Node = this.render()
 
     this._removeEvents()
     if (this._element) {
@@ -236,18 +239,18 @@ class Block {
     this._addEvents()
   }
 
-  render(): string {
+  render(): DocumentFragment {
     return this.compile('', this.props)
   }
 
-  getContent(): HTMLElement | null {
+  getContent(): any {
     return this.element
   }
 
-  private _getChildren(propsAndChildren: any) {
-    const children: any = {}
-    const props: any = {}
-    const lists: any = {}
+  private _getChildren(propsAndChildren: BlockProps) {
+    const children: BlockProps = {}
+    const props: BlockProps = {}
+    const lists: BlockProps = {}
 
     Object.entries(propsAndChildren).forEach(([key, value]) => {
       if (Array.isArray(value)) {

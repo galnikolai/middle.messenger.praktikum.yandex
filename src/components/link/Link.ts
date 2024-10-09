@@ -2,7 +2,7 @@ import { template } from './template'
 import Block from '../../modules/Block'
 
 export default class Link extends Block {
-  constructor(props: any) {
+  constructor(props: unknown) {
     super('div', props)
   }
 

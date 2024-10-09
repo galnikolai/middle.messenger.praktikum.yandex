@@ -1,4 +1,4 @@
-import Block from '../modules/Block'
+import Block, { BlockProps } from '../modules/Block'
 import { StoreEvents, store } from '../modules/Store'
 
 export const trim = (value: string, pattern?: string) => {
@@ -34,13 +34,13 @@ export const trim = (value: string, pattern?: string) => {
 //   return result
 // }
 
-export type Indexed<T = any> = {
-  [key in string]: T
+export type Indexed = {
+  [key in string]: any
 }
 
 function merge(lhs: Indexed, rhs: Indexed): Indexed {
-  for (let p in rhs) {
-    if (!rhs.hasOwnProperty(p)) {
+  for (const p in rhs) {
+    if (!Object.prototype.hasOwnProperty.call(rhs, p)) {
       continue
     }
 
@@ -79,7 +79,7 @@ export function set(object: Indexed | unknown, path: string, value: unknown): In
   return merge(object as Indexed, reducedObj)
 }
 
-export function isEqual(lhs: any, rhs: any): boolean {
+export function isEqual(lhs: BlockProps, rhs: BlockProps): boolean {
   // Если оба значения не являются объектами, сравниваем их напрямую
   if (typeof lhs !== 'object' || typeof rhs !== 'object' || lhs === null || rhs === null) {
     return lhs === rhs
@@ -94,8 +94,8 @@ export function isEqual(lhs: any, rhs: any): boolean {
   }
 
   // Рекурсивно сравниваем каждый ключ и его значение
-  for (let key of lhsKeys) {
-    if (!rhs.hasOwnProperty(key)) {
+  for (const key of lhsKeys) {
+    if (!Object.prototype.hasOwnProperty.call(rhs, key)) {
       return false
     }
 
@@ -132,7 +132,7 @@ function isArrayOrObject(value: unknown): value is [] | PlainObject {
   return isPlainObject(value) || isArray(value)
 }
 
-export function cloneDeep(obj: any): any {
+export function cloneDeep(obj: unknown): unknown {
   if (isArray(obj)) {
     return obj.map((i) => cloneDeep(i))
   }
@@ -140,7 +140,7 @@ export function cloneDeep(obj: any): any {
   if (isPlainObject(obj)) {
     const keys = Object.keys(obj)
 
-    for (let key of keys) {
+    for (const key of keys) {
       if (isPlainObject(obj[key])) {
         return cloneDeep(obj[key])
       } else {
@@ -153,7 +153,7 @@ export function cloneDeep(obj: any): any {
 }
 
 /* мое решение
-function stringifyObjHelper(data: StringIndexed | any, resultStr?: string): any {
+function stringifyObjHelper(data: StringIndexed | unknown, resultStr?: string): unknown {
   if (!isPlainObject(data) && resultStr) {
     return resultStr
   }
@@ -179,9 +179,9 @@ function queryStringify(data: StringIndexed): string | never {
     if (isPlainObject(data[i])) {
       result = `${i}${stringifyObjHelper(data[i])}`
     } else if (isArray(data[i])) {
-      result = (data[i] as any[]).reduce((acc, v, key) => {
+      result = (data[i] as unknown[]).reduce((acc, v, key) => {
         const calculated = acc + `${i}[${key}]=${v}`
-        return (data[i] as any[]).length - 1 !== key ? calculated + '&' : calculated
+        return (data[i] as unknown[]).length - 1 !== key ? calculated + '&' : calculated
       }, '')
     } else {
       result = `${i}=${data[i]}`

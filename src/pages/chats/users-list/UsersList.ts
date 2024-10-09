@@ -4,7 +4,7 @@ import Block from '../../../modules/Block'
 import { template } from './template'
 
 export default class UsersList extends Block {
-  constructor(props: any) {
+  constructor(props: unknown) {
     super('div', props)
     userController.searchUsers('')
   }

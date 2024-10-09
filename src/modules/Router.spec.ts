@@ -1,5 +1,4 @@
 import { expect } from 'chai'
-import hello from '../hello'
 import { Router, Routes } from './Router'
 import Block from './Block'
 
@@ -20,10 +19,10 @@ describe('Роутер', () => {
       url: 'http://localhost:3000',
     })
 
-    ;(global.window as any) = window
+    ;(global.window as unknown) = window
     global.document = window.document
     global.DocumentFragment = window.DocumentFragment
-    ;(global.XMLHttpRequest as any) = Sinon.useFakeXMLHttpRequest()
+    ;(global.XMLHttpRequest as unknown) = Sinon.useFakeXMLHttpRequest()
 
     this.router = new Router('#app')
   })
@@ -47,10 +46,4 @@ describe('Роутер', () => {
 
   //   expect(window.history.length).to.eq(6)
   // })
-})
-
-describe('Typescript + Babel usage suite', () => {
-  it('should return string correctly', () => {
-    expect(hello('mocha'), 'Hello mocha')
-  })
 })

@@ -1,6 +1,8 @@
 import { resolve } from 'path'
 import { defineConfig } from 'vite'
 import handlebars from 'vite-plugin-handlebars'
+import eslint from 'vite-plugin-eslint'
+import stylelint from 'vite-plugin-stylelint'
 
 export default defineConfig({
   root: resolve(__dirname, 'src'),
@@ -57,5 +59,7 @@ export default defineConfig({
         changeAvatar: 'Change avatar',
       },
     }),
+    eslint(),
+    stylelint(),
   ],
 })

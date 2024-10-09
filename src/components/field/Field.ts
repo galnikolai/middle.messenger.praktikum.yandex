@@ -46,7 +46,7 @@ interface FieldProps {
   required?: boolean
   type?: string
   className?: string
-  events?: any
+  events?: unknown
   placeholder?: string
   id?: number | string
   acept?: string
@@ -57,18 +57,18 @@ export default class Field extends Block {
     const newProps = {
       ...props,
       events: {
-        change: (event: any) => {
+        change: (event: unknown) => {
           event.stopPropagation()
           props?.events?.change(event)
           store.set(`${props.parentKey}.` + props.name, event.target.value)
         },
-        blur: (event: any) => {
+        blur: (event: unknown) => {
           event.preventDefault()
 
           if (event?.target) {
             const fieldName: ValidationKeys = event.target.name
             const value = event.target.value
-            const regex: any = validationRules[fieldName]
+            const regex: unknown = validationRules[fieldName]
 
             if (regex && !regex.test(value)) {
               const element: HTMLElement | null | undefined =

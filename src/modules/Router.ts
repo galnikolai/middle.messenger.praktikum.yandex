@@ -1,6 +1,7 @@
 import { render } from '../utils/renderDOM'
+import { BlockProps } from './Block'
 
-function isEqual(lhs: any, rhs: any) {
+function isEqual(lhs: unknown, rhs: unknown) {
   return lhs === rhs
 }
 
@@ -15,12 +16,12 @@ export enum Routes {
 }
 class Route {
   _pathname: string
-  _blockClass: any
-  _block: any
-  _props: any
-  _blockProps: any
+  _blockClass: unknown
+  _block: BlockProps | null
+  _props: BlockProps
+  _blockProps: BlockProps
 
-  constructor(pathname: string, view: any, props: any, blockProps: any) {
+  constructor(pathname: string, view: unknown, props: BlockProps, blockProps: BlockProps) {
     this._pathname = pathname
     this._blockClass = view
     this._block = null
@@ -58,11 +59,11 @@ class Route {
 }
 
 export class Router {
-  _currentRoute: any
-  routes: any
-  _rootQuery: any
-  history: any
-  static __instance: any
+  _currentRoute: string | undefined
+  routes: string[]
+  _rootQuery: unknown
+  history: History
+  static __instance: unknown
 
   constructor(rootQuery: string) {
     if (Router.__instance) {
@@ -77,14 +78,14 @@ export class Router {
     Router.__instance = this
   }
 
-  use(pathname: string, block: any, blockProps: any) {
-    const route = new Route(pathname, block, { rootQuery: this._rootQuery }, blockProps)
+  use(pathname: string, block: unknown, blockProps: BlockProps) {
+    const route: Route = new Route(pathname, block, { rootQuery: this._rootQuery }, blockProps)
     this.routes.push(route)
     return this
   }
 
   start() {
-    window.onpopstate = (event: any) => {
+    window.onpopstate = (event: Event) => {
       if (event) {
         this._onRoute(event?.currentTarget?.location?.pathname)
       }
@@ -121,8 +122,8 @@ export class Router {
     this.history.forward()
   }
 
-  getRoute(pathname: string) {
-    return this.routes.find((route: any) => route.match(pathname))
+  getRoute(pathname: string): string | undefined {
+    return this.routes.find((route: string) => route.match(pathname))
   }
 }
 

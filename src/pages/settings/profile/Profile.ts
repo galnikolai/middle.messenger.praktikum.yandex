@@ -1,18 +1,18 @@
 import { authController } from '../../../controllers/auth-controller'
 
 import Block, { BlockProps } from '../../../modules/Block'
-import { withStore } from '../../../modules/Store'
+import { State, withStore } from '../../../modules/Store'
 
 import { template } from './template'
 
 class ProfileBase extends Block {
-  constructor(props: any) {
+  constructor(props: BlockProps) {
     super('main', props)
     authController.getUser()
   }
 
   protected componentDidUpdate(_oldProps: BlockProps, newProps: BlockProps): boolean {
-    this.children.form.lists.fields.map((i: any) => {
+    this.children.form.lists.fields.map((i: BlockProps) => {
       if (!i.props.value || i.props.value !== newProps.user[i.props.name]) {
         i.setProps({ value: newProps.user[i.props.name] })
       }
@@ -29,7 +29,7 @@ class ProfileBase extends Block {
   }
 }
 
-const withProfile = withStore((state) => {
+const withProfile = withStore((state: State) => {
   return { user: state.user || {} }
 })
 

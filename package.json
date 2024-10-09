@@ -10,9 +10,14 @@
     "preview": "vite preview --port 3000",
     "start": "npm run build && npm run preview ",
     "lint:css": "stylelint '**/*.less'",
+    "lint:ts": "eslint . -c .ts,.js",
     "test": "mocha -r jsdom-global/register",
-    "prepare": "husky install",
-    "pre-commit": "npm run lint:css && npm run test"
+    "pre-commit": "npm run lint:ts && npm run lint:css && npm run test"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint:ts && npm run lint:css && npm run test"
+    }
   },
   "devDependencies": {
     "@eslint/js": "^9.7.0",
@@ -22,7 +27,7 @@
     "@types/sinon": "^17.0.3",
     "@types/uuid": "^10.0.0",
     "chai": "^5.1.1",
-    "eslint": "^8.57.0",
+    "eslint": "^8.57.1",
     "eslint-config-google": "^0.14.0",
     "globals": "^15.8.0",
     "husky": "^9.1.6",
@@ -37,10 +42,13 @@
     "ts-node": "^10.9.2",
     "typescript": "^5.5.3",
     "typescript-eslint": "^7.16.1",
-    "vite": "^5.3.1"
+    "vite": "^5.3.1",
+    "vite-plugin-eslint": "^1.8.1",
+    "vite-plugin-stylelint": "^5.3.1"
   },
   "dependencies": {
     "lodash-es": "^4.17.21",
+    "npx": "^10.2.2",
     "surge": "^0.24.6",
     "uuid": "^10.0.0",
     "vite-plugin-handlebars": "^2.0.0"

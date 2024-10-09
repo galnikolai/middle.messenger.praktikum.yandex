@@ -5,8 +5,8 @@ import { template } from './template'
 interface FormProps {
   className?: string
   id?: number | string
-  events?: any
-  fields?: any
+  events?: unknown
+  fields?: unknown
   stateParent?: string
 }
 
@@ -24,7 +24,7 @@ export default class Form extends Block {
             const fieldName = input?.getAttribute('name') as ValidationKeys
             const value = input?.value
 
-            const regex: any = validationRules[fieldName]
+            const regex: unknown = validationRules[fieldName]
 
             if (regex && !regex.test(value)) {
               const element: HTMLElement | null = el?.querySelector('#error-message')

@@ -8,7 +8,7 @@ enum METHODS {
 type Options =
   | {
       headers?: { [key: string]: string }
-      data?: { [key: string]: string } | any
+      data?: { [key: string]: string } | unknown
       timeout?: number
       method?: METHODS
       title?: string
@@ -41,10 +41,10 @@ export class HTTPTransport {
     this.url = `${HTTPTransport.API_URL}${url}`
   }
 
-  get: HTTPMethod = (url, options = {}) =>
+  get: HTTPMethod = (url, options: Options = {}) =>
     this.request(this.url + url, { ...options, method: METHODS.GET }, options?.timeout)
 
-  put: HTTPMethod = (url, options = {}) =>
+  put: HTTPMethod = (url: string, options = {}) =>
     this.request(this.url + url, { ...options, method: METHODS.PUT }, options?.timeout)
 
   post: HTTPMethod = (url, options = {}) =>

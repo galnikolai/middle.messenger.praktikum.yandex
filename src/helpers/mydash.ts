@@ -51,7 +51,7 @@ function getTag(value: string) {
   return toString.call(value)
 }
 
-export const isEmpty = (value: boolean | undefined | null | string | number | any) => {
+export const isEmpty = (value: boolean | undefined | null | string | number | unknown) => {
   if (
     typeof value === 'boolean' ||
     value === undefined ||

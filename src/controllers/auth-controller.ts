@@ -3,7 +3,12 @@ import { Routes, router } from '../modules/Router'
 import { store } from '../modules/Store'
 
 export class AuthController {
-  api: any
+  api: {
+    signup(credentials: SignupData): any
+    logout(): Promise<XMLHttpRequest>
+    login(credentials: SigninData): any
+    read(): any
+  }
   constructor() {
     this.api = new AuthAPI()
   }

@@ -6,7 +6,7 @@ interface InputProps {
   required?: boolean
   type?: string
   className?: string
-  events?: any
+  events?: unknown
   placeholder?: string
 }
 export default class Input extends Block {

@@ -15,7 +15,7 @@ export class UserController {
 
         store.set('user', response)
       })
-      .catch((error: any) => {
+      .catch((error: unknown) => {
         console.error('Error caught in promise chain:', error.message)
       })
   }
@@ -32,7 +32,7 @@ export class UserController {
 
         store.set('user', response)
       })
-      .catch((error: any) => {
+      .catch((error: unknown) => {
         console.error('Error caught in promise chain:', error.message)
       })
   }
@@ -49,7 +49,7 @@ export class UserController {
 
         store.set('user', response)
       })
-      .catch((error: any) => {
+      .catch((error: unknown) => {
         console.error('Error caught in promise chain:', error.message)
       })
   }
@@ -66,7 +66,7 @@ export class UserController {
 
         store.set('users', response)
       })
-      .catch((error: any) => {
+      .catch((error: unknown) => {
         console.log('Error caught in promise chain:', error.message)
       })
   }

@@ -25,9 +25,11 @@ export const password = {
         id: 'avatar-input',
         events: {
           change: () => {
-            const myUserForm: any = document.getElementById('myUserForm')
-            const form = new FormData(myUserForm)
-            userController.changeAvatar(form)
+            const myUserForm: HTMLElement | null = document.getElementById('myUserForm')
+            if (myUserForm) {
+              const form = new FormData(myUserForm as HTMLFormElement)
+              userController.changeAvatar(form)
+            }
           },
         },
         parentKey: 'user',

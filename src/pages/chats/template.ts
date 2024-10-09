@@ -14,7 +14,7 @@ export const template = `
       </div>
       <div class="chat-content">
         <div class="chat-placeholder">
-           Select any chat
+           Select unknown chat
         </div>
         <div class="chat-header">
           <span class="chat-title">Name</span>
