@@ -3,7 +3,7 @@ import Popup from '../../components/popup/Popup'
 import { chatsController } from '../../controllers/chats-controller'
 import { messagesController } from '../../controllers/messages-controller'
 import { userController } from '../../controllers/user-controller'
-import { router } from '../../modules/Router'
+import { Routes, router } from '../../modules/Router'
 import ChatUsersList from './chat-user-list/ChatUsersList'
 import { usersList } from './users-list'
 import UsersList from './users-list/UsersList'
@@ -15,7 +15,7 @@ export const chats = {
     events: {
       click: (event: Event) => {
         event.preventDefault()
-        router.go('/settings')
+        router.go(Routes.Settings)
       },
     },
   }),

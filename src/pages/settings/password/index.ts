@@ -1,7 +1,7 @@
 import { Button, Form, Field } from '../../../components'
 import Avatar from '../../../components/avatar/Avatar'
 import { userController } from '../../../controllers/user-controller'
-import { router } from '../../../modules/Router'
+import { Routes, router } from '../../../modules/Router'
 
 export const password = {
   avatar: new Avatar({
@@ -25,9 +25,11 @@ export const password = {
         id: 'avatar-input',
         events: {
           change: () => {
-            const myUserForm: any = document.getElementById('myUserForm')
-            const form = new FormData(myUserForm)
-            userController.changeAvatar(form)
+            const myUserForm: HTMLElement | null = document.getElementById('myUserForm')
+            if (myUserForm) {
+              const form = new FormData(myUserForm as HTMLFormElement)
+              userController.changeAvatar(form)
+            }
           },
         },
         parentKey: 'user',
@@ -77,9 +79,8 @@ export const password = {
     className: 'back link',
     events: {
       click: (event: Event) => {
-        console.log(event)
         event.preventDefault()
-        router.go('/settings')
+        router.go(Routes.Settings)
       },
     },
   }),

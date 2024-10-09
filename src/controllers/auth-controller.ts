@@ -3,7 +3,12 @@ import { Routes, router } from '../modules/Router'
 import { store } from '../modules/Store'
 
 export class AuthController {
-  api: any
+  api: {
+    signup(credentials: SignupData): any
+    logout(): Promise<XMLHttpRequest>
+    login(credentials: SigninData): any
+    read(): any
+  }
   constructor() {
     this.api = new AuthAPI()
   }
@@ -61,7 +66,7 @@ export class AuthController {
       const { response }: { response: User } = data
 
       const authRoutes =
-        document.location.pathname === '/' || document.location.pathname === '/sign-up'
+        document.location.pathname === Routes.LogIn || document.location.pathname === Routes.SignUp
 
       if (!response?.reason && authRoutes) {
         router.go(Routes.Messenger)
@@ -77,7 +82,7 @@ export class AuthController {
 
       store.set('user', response)
     } catch (error) {
-      // alert(error)
+      console.log(error)
     }
   }
 }

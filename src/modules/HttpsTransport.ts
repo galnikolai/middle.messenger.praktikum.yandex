@@ -8,7 +8,7 @@ enum METHODS {
 type Options =
   | {
       headers?: { [key: string]: string }
-      data?: { [key: string]: string } | any
+      data?: { [key: string]: string } | unknown
       timeout?: number
       method?: METHODS
       title?: string
@@ -32,19 +32,17 @@ function queryStringify(data: { [key: string]: string }) {
 }
 
 type HTTPMethod = (url: string, options?: Options) => Promise<any>
-
+export const API_URL = 'https://ya-praktikum.tech/api/v2'
 export class HTTPTransport {
-  static API_URL = 'https://ya-praktikum.tech/api/v2'
-
   url: string
   constructor(url: string) {
-    this.url = `${HTTPTransport.API_URL}${url}`
+    this.url = `${API_URL}${url}`
   }
 
   get: HTTPMethod = (url, options = {}) =>
     this.request(this.url + url, { ...options, method: METHODS.GET }, options?.timeout)
 
-  put: HTTPMethod = (url, options = {}) =>
+  put: HTTPMethod = (url: string, options = {}) =>
     this.request(this.url + url, { ...options, method: METHODS.PUT }, options?.timeout)
 
   post: HTTPMethod = (url, options = {}) =>
@@ -63,7 +61,7 @@ export class HTTPTransport {
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest()
 
-      xhr.open(method, `${url}${data && method == METHODS.GET ? queryStringify(data) : ''}`)
+      xhr.open(method, `${url}${data && method === METHODS.GET ? queryStringify(data) : ''}`)
 
       if (headers?.length) {
         Object.keys(headers).map((key) => {

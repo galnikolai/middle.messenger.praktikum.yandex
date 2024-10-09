@@ -5,13 +5,13 @@ import { withStore } from '../../../modules/Store'
 import { template } from './template'
 
 export default class PasswordBase extends Block {
-  constructor(props: any) {
+  constructor(props: BlockProps) {
     super('main', props)
     authController.getUser()
   }
 
   protected componentDidUpdate(_oldProps: BlockProps, newProps: BlockProps): boolean {
-    this.children.form.lists.fields.map((i: any) => {
+    this.children.form.lists.fields.map((i: BlockProps) => {
       if (!i.props.value || i.props.value !== newProps.password[i.props.name]) {
         i.setProps({ value: newProps.password[i.props.name] })
       }
@@ -44,7 +44,7 @@ export default class PasswordBase extends Block {
   }
 }
 
-const withProfile = withStore((state) => {
+const withProfile: any = withStore((state: any) => {
   return { user: state.user || {}, password: state.password || {} }
 })
 

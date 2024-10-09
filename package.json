@@ -9,28 +9,57 @@
     "build": "npm run prebuild && vite build",
     "preview": "vite preview --port 3000",
     "start": "npm run build && npm run preview ",
-    "lint:css": "stylelint '**/*.less'"
+    "lint:css": "stylelint '**/*.less'",
+    "lint:ts": "eslint . --ext .ts,.js",
+    "test": "./node_modules/.bin/mocha",
+    "prepare": "husky install",
+    "postinstall": "husky install"
   },
   "devDependencies": {
     "@eslint/js": "^9.7.0",
+    "@types/body-parser": "^1.19.5",
+    "@types/chai": "^5.0.0",
+    "@types/jsdom": "^21.1.7",
+    "@types/mocha": "^10.0.8",
+    "@types/sinon": "^17.0.3",
     "@types/uuid": "^10.0.0",
-    "eslint": "^8.57.0",
+    "chai": "^5.1.1",
+    "eslint": "^8.57.1",
     "eslint-config-google": "^0.14.0",
     "globals": "^15.8.0",
+    "husky": "^8.0.3",
+    "jsdom": "25.0.1",
+    "jsdom-global": "3.0.2",
     "less": "^4.2.0",
+    "lint-staged": "^15.2.10",
+    "mocha": "^10.7.3",
+    "mocha-jsdom": "^1.2.0",
+    "sinon": "^19.0.2",
     "stylelint": "^16.7.0",
     "stylelint-config-standard": "^36.0.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.5.3",
     "typescript-eslint": "^7.16.1",
-    "vite": "^5.3.1"
+    "vite": "^5.3.1",
+    "vite-plugin-eslint": "^1.8.1",
+    "vite-plugin-stylelint": "^5.3.1"
   },
   "dependencies": {
+    "express": "^4.21.1",
     "lodash-es": "^4.17.21",
     "uuid": "^10.0.0",
     "vite-plugin-handlebars": "^2.0.0"
   },
   "engines": {
     "node": ">=18"
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,tsx}": [
+      "eslint . --ext .ts,.js",
+      "prettier --write"
+    ],
+    "src/**/*.{css,scss,less}": [
+      "stylelint '**/*.less"
+    ]
   }
 }

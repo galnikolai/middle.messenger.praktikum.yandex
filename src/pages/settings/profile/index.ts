@@ -2,7 +2,7 @@ import { Button, Form, Field } from '../../../components'
 import Avatar from '../../../components/avatar/Avatar'
 import { authController } from '../../../controllers/auth-controller'
 import { userController } from '../../../controllers/user-controller'
-import { router } from '../../../modules/Router'
+import { Routes, router } from '../../../modules/Router'
 
 export const profileObj = {
   avatar: new Avatar({
@@ -94,7 +94,7 @@ export const profileObj = {
     events: {
       click: (event: Event) => {
         event.preventDefault()
-        router.go('/settings/password')
+        router.go(Routes.SettingsPassword)
       },
     },
   }),
@@ -113,7 +113,7 @@ export const profileObj = {
     events: {
       click: (event: Event) => {
         event.preventDefault()
-        router.go('/messenger')
+        router.go(Routes.Messenger)
       },
     },
   }),

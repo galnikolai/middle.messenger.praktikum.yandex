@@ -1,4 +1,4 @@
-import Block from '../modules/Block'
+import Block, { BlockProps } from '../modules/Block'
 import { StoreEvents, store } from '../modules/Store'
 
 export const trim = (value: string, pattern?: string) => {
@@ -12,35 +12,13 @@ export const trim = (value: string, pattern?: string) => {
   return val
 }
 
-// type Indexed<T = unknown> = {
-//   [key in string]: T
-// }
-
-// const merge = (lhs: Indexed, rhs: Indexed): Indexed => {
-//   const result: Indexed = { ...lhs }
-
-//   Object.keys(rhs).forEach((key) => {
-//     if (typeof rhs[key] === 'object' && rhs[key] !== null && !Array.isArray(rhs[key])) {
-//       if (typeof lhs[key] === 'object' && lhs[key] !== null && !Array.isArray(lhs[key])) {
-//         result[key] = merge(lhs[key] as Indexed, rhs[key] as Indexed)
-//       } else {
-//         result[key] = rhs[key]
-//       }
-//     } else {
-//       result[key] = rhs[key]
-//     }
-//   })
-
-//   return result
-// }
-
-export type Indexed<T = any> = {
-  [key in string]: T
+export type Indexed = {
+  [key in string]: any
 }
 
 function merge(lhs: Indexed, rhs: Indexed): Indexed {
-  for (let p in rhs) {
-    if (!rhs.hasOwnProperty(p)) {
+  for (const p in rhs) {
+    if (!Object.prototype.hasOwnProperty.call(rhs, p)) {
       continue
     }
 
@@ -58,7 +36,7 @@ function merge(lhs: Indexed, rhs: Indexed): Indexed {
   return lhs
 }
 
-export function set(object: Indexed | unknown, path: string, value: unknown): Indexed | unknown {
+export function set(object: Indexed | unknown, path: string, value: any): Indexed | unknown {
   if (typeof path !== 'string') {
     throw new Error('path must be string')
   }
@@ -79,7 +57,7 @@ export function set(object: Indexed | unknown, path: string, value: unknown): In
   return merge(object as Indexed, reducedObj)
 }
 
-export function isEqual(lhs: any, rhs: any): boolean {
+export function isEqual(lhs: BlockProps, rhs: BlockProps): boolean {
   // Если оба значения не являются объектами, сравниваем их напрямую
   if (typeof lhs !== 'object' || typeof rhs !== 'object' || lhs === null || rhs === null) {
     return lhs === rhs
@@ -94,8 +72,8 @@ export function isEqual(lhs: any, rhs: any): boolean {
   }
 
   // Рекурсивно сравниваем каждый ключ и его значение
-  for (let key of lhsKeys) {
-    if (!rhs.hasOwnProperty(key)) {
+  for (const key of lhsKeys) {
+    if (!Object.prototype.hasOwnProperty.call(rhs, key)) {
       return false
     }
 
@@ -111,7 +89,7 @@ export function isEqual(lhs: any, rhs: any): boolean {
   return true
 }
 
-function isArray(value: unknown): value is [] {
+function isArray(value: any): value is [] {
   return Array.isArray(value)
 }
 
@@ -119,7 +97,7 @@ type PlainObject<T = unknown> = {
   [k in string]: T
 }
 
-function isPlainObject(value: unknown): value is PlainObject {
+function isPlainObject(value: any): value is PlainObject {
   return (
     typeof value === 'object' &&
     value !== null &&
@@ -128,7 +106,7 @@ function isPlainObject(value: unknown): value is PlainObject {
   )
 }
 
-function isArrayOrObject(value: unknown): value is [] | PlainObject {
+function isArrayOrObject(value: any): value is [] | PlainObject {
   return isPlainObject(value) || isArray(value)
 }
 
@@ -140,7 +118,7 @@ export function cloneDeep(obj: any): any {
   if (isPlainObject(obj)) {
     const keys = Object.keys(obj)
 
-    for (let key of keys) {
+    for (const key of keys) {
       if (isPlainObject(obj[key])) {
         return cloneDeep(obj[key])
       } else {
@@ -153,7 +131,7 @@ export function cloneDeep(obj: any): any {
 }
 
 /* мое решение
-function stringifyObjHelper(data: StringIndexed | any, resultStr?: string): any {
+function stringifyObjHelper(data: StringIndexed | unknown, resultStr?: string): any {
   if (!isPlainObject(data) && resultStr) {
     return resultStr
   }
@@ -179,9 +157,9 @@ function queryStringify(data: StringIndexed): string | never {
     if (isPlainObject(data[i])) {
       result = `${i}${stringifyObjHelper(data[i])}`
     } else if (isArray(data[i])) {
-      result = (data[i] as any[]).reduce((acc, v, key) => {
+      result = (data[i] as unknown[]).reduce((acc, v, key) => {
         const calculated = acc + `${i}[${key}]=${v}`
-        return (data[i] as any[]).length - 1 !== key ? calculated + '&' : calculated
+        return (data[i] as unknown[]).length - 1 !== key ? calculated + '&' : calculated
       }, '')
     } else {
       result = `${i}=${data[i]}`
@@ -230,25 +208,19 @@ export function queryString(data: PlainObject) {
 ///////
 
 export function connect(Component: typeof Block, mapStateToProps: (state: Indexed) => Indexed) {
-  // используем class expression
-
   return class extends Component {
     constructor(props: any) {
       let state = mapStateToProps(store.getState())
 
       super({ ...props, ...state })
 
-      // подписываемся на событие
       store.on(StoreEvents.Updated, () => {
-        // при обновлении получаем новое состояние
         const newState = mapStateToProps(store.getState())
 
-        // если что-то из используемых данных поменялось, обновляем компонент
         if (!isEqual(state, newState)) {
           this.setProps({ ...newState })
         }
 
-        // не забываем сохранить новое состояние
         state = newState
       })
     }

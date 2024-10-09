@@ -1,4 +1,5 @@
 import { render } from '../utils/renderDOM'
+import { BlockProps } from './Block'
 
 function isEqual(lhs: any, rhs: any) {
   return lhs === rhs
@@ -8,15 +9,19 @@ export enum Routes {
   LogIn = '/',
   SignUp = '/sign-up',
   Messenger = '/messenger',
+  Settings = '/settings',
+  SettingsPassword = '/settings/password',
+  NotFound = '/not-found',
+  ServerError = '/server-error',
 }
 class Route {
   _pathname: string
   _blockClass: any
-  _block: any
-  _props: any
-  _blockProps: any
+  _block: BlockProps | null
+  _props: BlockProps
+  _blockProps: BlockProps
 
-  constructor(pathname: string, view: any, props: any, blockProps: any) {
+  constructor(pathname: string, view: any, props: BlockProps, blockProps: BlockProps) {
     this._pathname = pathname
     this._blockClass = view
     this._block = null
@@ -37,27 +42,25 @@ class Route {
     }
   }
 
-  match(pathname: string) {
+  match(pathname: string | URL | null | undefined) {
     return isEqual(pathname, this._pathname)
   }
 
   render() {
-    // if (!this._block) {
+    if (typeof this._blockClass !== 'function') {
+      throw new Error(`_blockClass is not a valid constructor: ${this._blockClass}`)
+    }
     this._block = new this._blockClass(this._blockProps)
-
     render(this._props.rootQuery, this._block)
     return
-    // }
-
-    // this._block.show()
   }
 }
 
-class Router {
-  _currentRoute: any
-  routes: any
+export class Router {
+  _currentRoute: string | undefined | any
+  routes: Route[] = []
   _rootQuery: any
-  history: any
+  history!: History
   static __instance: any
 
   constructor(rootQuery: string) {
@@ -67,20 +70,20 @@ class Router {
 
     this.routes = []
     this.history = window.history
-    this._currentRoute = null
+    this._currentRoute = undefined
     this._rootQuery = rootQuery
 
     Router.__instance = this
   }
 
-  use(pathname: string, block: any, blockProps: any) {
-    const route = new Route(pathname, block, { rootQuery: this._rootQuery }, blockProps)
+  use(pathname: string, block: any, blockProps: BlockProps) {
+    const route: Route = new Route(pathname, block, { rootQuery: this._rootQuery }, blockProps)
     this.routes.push(route)
     return this
   }
 
   start() {
-    window.onpopstate = (event: any) => {
+    window.onpopstate = (event: Event | any) => {
       if (event) {
         this._onRoute(event?.currentTarget?.location?.pathname)
       }
@@ -89,11 +92,15 @@ class Router {
     this._onRoute(window.location.pathname)
   }
 
-  _onRoute(pathname: string) {
+  _onRoute(pathname: string | URL | null | undefined) {
     const route = this.getRoute(pathname)
-
     if (this._currentRoute && !this.getRoute(this._currentRoute.match(pathname))) {
       this._currentRoute.leave()
+    }
+
+    if (!route) {
+      this.go(Routes.NotFound)
+      return
     }
 
     this._currentRoute = route
@@ -101,20 +108,20 @@ class Router {
   }
 
   go(pathname: string) {
-    history.pushState({}, '', pathname)
+    this.history.pushState({}, '', pathname)
     this._onRoute(pathname)
   }
 
   back() {
-    history.back()
+    this.history.back()
   }
 
   forward() {
-    history.forward()
+    this.history.forward()
   }
 
-  getRoute(pathname: string) {
-    return this.routes.find((route: any) => route.match(pathname))
+  getRoute(pathname: string | URL | null | undefined): string | undefined | any {
+    return this.routes.find((route: Route) => route.match(pathname))
   }
 }
 

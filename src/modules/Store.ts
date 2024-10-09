@@ -9,7 +9,7 @@ export enum StoreEvents {
   Updated = 'updated',
 }
 
-interface State {
+export interface State {
   user?: User
   chats?: ChatInfo[]
   messages?: any
@@ -28,7 +28,7 @@ class Store extends EventBus {
     return this.state
   }
 
-  public set(path: string, value: unknown) {
+  public set(path: string, value: any) {
     set(this.state, path, value)
     this.emit(StoreEvents.Updated, this.getState())
   }
@@ -36,16 +36,16 @@ class Store extends EventBus {
 
 export const store = new Store()
 
-export function withStore(mapStateToProps: (state: State) => any) {
+export function withStore(mapStateToProps: (state: State) => State) {
   return function wrap(Component: typeof Block) {
     return class WithStore extends Component {
       constructor(props: any) {
-        let previousState = mapStateToProps(store.getState())
+        let previousState: State = mapStateToProps(store.getState())
 
         super({ ...props, ...previousState })
 
         store.on(StoreEvents.Updated, () => {
-          const stateProps = mapStateToProps(store.getState())
+          const stateProps: State = mapStateToProps(store.getState())
 
           previousState = stateProps
 

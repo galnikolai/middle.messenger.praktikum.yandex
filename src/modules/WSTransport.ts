@@ -22,7 +22,7 @@ export class WSTransport extends EventBus {
     this.socket?.close()
   }
 
-  public send(data: unknown, timeout = 500) {
+  public send(data: any, timeout = 500) {
     if (!this.socket) throw new Error('Socket is not connected')
 
     if (this.socket.readyState === WebSocket.OPEN) {

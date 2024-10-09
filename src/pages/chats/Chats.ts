@@ -18,18 +18,21 @@ export default class ChatsBase extends Block {
   protected componentDidUpdate(_oldProps: BlockProps, newProps: BlockProps): boolean {
     if (!this.element) return true
     const chatContent = this.element.querySelector('.chat-content')
-    const messagesContainer: any = this.element.querySelector('.chat-messages')
+    const messagesContainer: HTMLElement | null = this.element.querySelector('.chat-messages')
     const selectedChat: number | undefined = store.getState().selectedChat
-    messagesContainer.innerHTML = ''
 
-    if (!!newProps?.chats?.length) {
+    if (messagesContainer) {
+      messagesContainer.innerHTML = ''
+    }
+
+    if (newProps?.chats?.length) {
       const chatList = this.element.querySelector('.chat-list')
 
       if (chatList?.innerHTML) {
         chatList.innerHTML = ''
       }
 
-      newProps?.chats.forEach((i: ChatInfo) => {
+      newProps.chats.forEach((i: ChatInfo) => {
         const chatItem = this.createDocumentElement('div')
         const chatName = this.createDocumentElement('span')
         const chatLastMessage = this.createDocumentElement('span')
@@ -42,7 +45,7 @@ export default class ChatsBase extends Block {
         chatLastMessage.classList.add('chat-last-message')
         chatLastMessage.textContent =
           selectedChat === i?.id
-            ? newProps?.messages[0]?.content || i?.last_message?.content || 'No messages yet'
+            ? newProps.messages[0]?.content || i?.last_message?.content || 'No messages yet'
             : i?.last_message?.content || 'No messages yet'
 
         chatItem.appendChild(chatName)
@@ -56,14 +59,14 @@ export default class ChatsBase extends Block {
       })
     }
 
-    if (!!newProps?.users?.length) {
+    if (newProps?.users?.length) {
       const chatList = this.element.querySelector('.users-list')
 
       if (chatList?.innerHTML) {
         chatList.innerHTML = ''
       }
 
-      newProps?.users.forEach((i: UserInfo) => {
+      newProps.users.forEach((i: UserInfo) => {
         const chatItem = this.createDocumentElement('div')
         const chatName = this.createDocumentElement('span')
 
@@ -79,14 +82,14 @@ export default class ChatsBase extends Block {
       })
     }
 
-    if (!!newProps?.selectedChatUsers?.length) {
+    if (newProps?.selectedChatUsers?.length) {
       const chatList = this.element.querySelector('.chat-users-list')
 
       if (chatList?.innerHTML) {
         chatList.innerHTML = ''
       }
 
-      newProps?.selectedChatUsers.forEach((i: UserInfo) => {
+      newProps.selectedChatUsers.forEach((i: UserInfo) => {
         const chatItem = this.createDocumentElement('div')
         const chatName = this.createDocumentElement('span')
         const deleteChatUser = this.createDocumentElement('span')
@@ -112,16 +115,18 @@ export default class ChatsBase extends Block {
       chatContent?.classList.remove('content-disabled')
     }
 
-    if (!!newProps?.messages?.length) {
-      newProps?.messages.reverse().map((item: any) => {
+    if (newProps?.messages?.length) {
+      newProps?.messages.reverse().map((item: { content: string; user_id: number }) => {
         const message = this.createDocumentElement('div')
         message.textContent = item.content
         message.classList.add('message')
         message.classList.add(newProps?.user.id === item.user_id ? 'sent' : 'received')
-        messagesContainer.prepend(message)
+        messagesContainer?.prepend(message)
       })
 
-      messagesContainer.scrollTop = messagesContainer.scrollHeight
+      if (messagesContainer) {
+        messagesContainer.scrollTop = messagesContainer?.scrollHeight
+      }
     }
 
     return false

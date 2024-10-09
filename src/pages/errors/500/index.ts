@@ -1,15 +1,12 @@
 import { Link } from '../../../components'
-import { render } from '../../../utils/renderDOM'
-import Error from '../Error'
+import { Routes } from '../../../modules/Router'
 
-const notfound = new Error({
+export const serverError = {
   title: '500',
   description: 'Internal Server Error',
   link: new Link({
     text: 'Refresh the page',
     className: 'refresh-link',
-    href: '/',
+    href: Routes.LogIn,
   }),
-})
-
-render('.app', notfound)
+}
