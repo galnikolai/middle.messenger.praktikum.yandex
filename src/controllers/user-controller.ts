@@ -67,7 +67,7 @@ export class UserController {
         store.set('users', response)
       })
       .catch((error: any) => {
-        console.log('Error caught in promise chain:', error.message)
+        console.log('Error caught in promis e chain:', error.message)
       })
   }
 
