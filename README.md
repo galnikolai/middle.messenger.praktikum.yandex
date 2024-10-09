@@ -38,7 +38,7 @@ Usage
 - Profile settings http://localhost:3000/settings
 - Change password http://localhost:3000/settings/password
 - 404 http://localhost:3000/not-found
-- 500 http://localhost:3000//server-error
+- 500 http://localhost:3000/server-error
 
 ## Usefull links
 

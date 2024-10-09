@@ -9,4 +9,4 @@ global.MouseEvent = jsdom.window.MouseEvent
 global.navigator = jsdom.window.navigator
 global.localStorage = jsdom.window.localStorage
 global.sessionStorage = jsdom.window.sessionStorage
-global.XMLHttpRequest = jsdom.window.XMLHttpRequest // Добавьте эту строку
+global.XMLHttpRequest = jsdom.window.XMLHttpRequest

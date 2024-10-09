@@ -82,7 +82,7 @@ export class AuthController {
 
       store.set('user', response)
     } catch (error) {
-      // alert(error)
+      console.log(error)
     }
   }
 }

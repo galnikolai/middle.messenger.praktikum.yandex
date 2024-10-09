@@ -12,28 +12,6 @@ export const trim = (value: string, pattern?: string) => {
   return val
 }
 
-// type Indexed<T = unknown> = {
-//   [key in string]: T
-// }
-
-// const merge = (lhs: Indexed, rhs: Indexed): Indexed => {
-//   const result: Indexed = { ...lhs }
-
-//   Object.keys(rhs).forEach((key) => {
-//     if (typeof rhs[key] === 'object' && rhs[key] !== null && !Array.isArray(rhs[key])) {
-//       if (typeof lhs[key] === 'object' && lhs[key] !== null && !Array.isArray(lhs[key])) {
-//         result[key] = merge(lhs[key] as Indexed, rhs[key] as Indexed)
-//       } else {
-//         result[key] = rhs[key]
-//       }
-//     } else {
-//       result[key] = rhs[key]
-//     }
-//   })
-
-//   return result
-// }
-
 export type Indexed = {
   [key in string]: any
 }
@@ -230,25 +208,19 @@ export function queryString(data: PlainObject) {
 ///////
 
 export function connect(Component: typeof Block, mapStateToProps: (state: Indexed) => Indexed) {
-  // используем class expression
-
   return class extends Component {
     constructor(props: any) {
       let state = mapStateToProps(store.getState())
 
       super({ ...props, ...state })
 
-      // подписываемся на событие
       store.on(StoreEvents.Updated, () => {
-        // при обновлении получаем новое состояние
         const newState = mapStateToProps(store.getState())
 
-        // если что-то из используемых данных поменялось, обновляем компонент
         if (!isEqual(state, newState)) {
           this.setProps({ ...newState })
         }
 
-        // не забываем сохранить новое состояние
         state = newState
       })
     }
