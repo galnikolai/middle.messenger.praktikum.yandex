@@ -58,7 +58,7 @@ function merge(lhs: Indexed, rhs: Indexed): Indexed {
   return lhs
 }
 
-export function set(object: Indexed | unknown, path: string, value: unknown): Indexed | unknown {
+export function set(object: Indexed | unknown, path: string, value: any): Indexed | unknown {
   if (typeof path !== 'string') {
     throw new Error('path must be string')
   }
@@ -111,7 +111,7 @@ export function isEqual(lhs: BlockProps, rhs: BlockProps): boolean {
   return true
 }
 
-function isArray(value: unknown): value is [] {
+function isArray(value: any): value is [] {
   return Array.isArray(value)
 }
 
@@ -119,7 +119,7 @@ type PlainObject<T = unknown> = {
   [k in string]: T
 }
 
-function isPlainObject(value: unknown): value is PlainObject {
+function isPlainObject(value: any): value is PlainObject {
   return (
     typeof value === 'object' &&
     value !== null &&
@@ -128,11 +128,11 @@ function isPlainObject(value: unknown): value is PlainObject {
   )
 }
 
-function isArrayOrObject(value: unknown): value is [] | PlainObject {
+function isArrayOrObject(value: any): value is [] | PlainObject {
   return isPlainObject(value) || isArray(value)
 }
 
-export function cloneDeep(obj: unknown): unknown {
+export function cloneDeep(obj: any): any {
   if (isArray(obj)) {
     return obj.map((i) => cloneDeep(i))
   }
@@ -153,7 +153,7 @@ export function cloneDeep(obj: unknown): unknown {
 }
 
 /* мое решение
-function stringifyObjHelper(data: StringIndexed | unknown, resultStr?: string): unknown {
+function stringifyObjHelper(data: StringIndexed | unknown, resultStr?: string): any {
   if (!isPlainObject(data) && resultStr) {
     return resultStr
   }

@@ -3,7 +3,7 @@ import { store } from '../modules/Store'
 import { messagesController } from './messages-controller'
 
 class ChatsController {
-  api: unknown
+  api: any
 
   constructor() {
     this.api = new ChatsAPI()

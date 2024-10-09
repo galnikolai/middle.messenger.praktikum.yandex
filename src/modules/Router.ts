@@ -1,7 +1,7 @@
 import { render } from '../utils/renderDOM'
 import { BlockProps } from './Block'
 
-function isEqual(lhs: unknown, rhs: unknown) {
+function isEqual(lhs: any, rhs: any) {
   return lhs === rhs
 }
 
@@ -21,7 +21,7 @@ class Route {
   _props: BlockProps
   _blockProps: BlockProps
 
-  constructor(pathname: string, view: unknown, props: BlockProps, blockProps: BlockProps) {
+  constructor(pathname: string, view: any, props: BlockProps, blockProps: BlockProps) {
     this._pathname = pathname
     this._blockClass = view
     this._block = null
@@ -61,7 +61,7 @@ class Route {
 export class Router {
   _currentRoute: string | undefined | any
   routes: Route[] = []
-  _rootQuery: unknown
+  _rootQuery: any
   history!: History
   static __instance: any
 
@@ -78,7 +78,7 @@ export class Router {
     Router.__instance = this
   }
 
-  use(pathname: string, block: unknown, blockProps: BlockProps) {
+  use(pathname: string, block: any, blockProps: BlockProps) {
     const route: Route = new Route(pathname, block, { rootQuery: this._rootQuery }, blockProps)
     this.routes.push(route)
     return this

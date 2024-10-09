@@ -43,7 +43,7 @@ export const signin = {
       }),
     ],
     events: {
-      submit: (data: unknown) => {
+      submit: (data: any) => {
         authController.signup(data)
       },
     },

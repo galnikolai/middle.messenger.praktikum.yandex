@@ -22,7 +22,7 @@ export class WSTransport extends EventBus {
     this.socket?.close()
   }
 
-  public send(data: unknown, timeout = 500) {
+  public send(data: any, timeout = 500) {
     if (!this.socket) throw new Error('Socket is not connected')
 
     if (this.socket.readyState === WebSocket.OPEN) {
@@ -39,7 +39,7 @@ export class WSTransport extends EventBus {
     }
   }
 
-  public connect(url: string, callBackState: (data: unknown) => void) {
+  public connect(url: string, callBackState: (data: any) => void) {
     this.socket = new WebSocket(`${WSTransport.WSS_URL}/${url}`)
     // add listeners
     this.subscribe(this.socket, callBackState)
@@ -63,7 +63,7 @@ export class WSTransport extends EventBus {
     })
   }
 
-  private subscribe(socket: WebSocket, callBackState: (data: unknown) => void) {
+  private subscribe(socket: WebSocket, callBackState: (data: any) => void) {
     socket.addEventListener('open', () => this.emit(WSTransportEvents.Connected))
     socket.addEventListener('close', () => this.emit(WSTransportEvents.Close))
     socket.addEventListener('error', (e) => this.emit(WSTransportEvents.Error, e))

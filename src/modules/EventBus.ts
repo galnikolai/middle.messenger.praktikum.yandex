@@ -1,4 +1,4 @@
-type Listener = (...args: unknown[]) => void
+type Listener = (...args: any[]) => void
 
 class EventBus {
   private listeners: { [event: string]: Listener[] } = {}
@@ -23,7 +23,7 @@ class EventBus {
     this.listeners[event] = this.listeners[event].filter((listener) => listener !== callback)
   }
 
-  emit(event: string, ...args: unknown[]) {
+  emit(event: string, ...args: any[]) {
     if (!this.listeners[event]) {
       throw new Error(`Нет события: ${event}`)
     }

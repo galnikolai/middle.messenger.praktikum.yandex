@@ -5,7 +5,7 @@ interface AvatarProps {
   src?: string
   className?: string
   id?: string | number
-  events?: unknown
+  events?: any
 }
 export default class Avatar extends Block {
   constructor(props: AvatarProps) {

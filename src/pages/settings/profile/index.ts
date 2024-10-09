@@ -26,7 +26,7 @@ export const profileObj = {
         id: 'avatar-input',
         events: {
           change: () => {
-            const myUserForm: unknown = document.getElementById('myUserForm')
+            const myUserForm: any = document.getElementById('myUserForm')
             const form = new FormData(myUserForm)
             userController.changeAvatar(form)
           },

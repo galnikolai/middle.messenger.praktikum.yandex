@@ -95,7 +95,7 @@ export const chats = {
     events: {
       click: (event: Event) => {
         event.preventDefault()
-        const inputValue: unknown = document.querySelector('#message-input')
+        const inputValue: any = document.querySelector('#message-input')
 
         messagesController.sendMessage(inputValue?.value)
         inputValue.value = ' '

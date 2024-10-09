@@ -2,7 +2,7 @@ import { template } from './template'
 import Block from '../../modules/Block'
 
 export default class Popup extends Block {
-  constructor(props: unknown) {
+  constructor(props: any) {
     super('div', props)
 
     const element: HTMLElement | null | undefined = this.element?.querySelector('button')
