@@ -15,6 +15,13 @@
     "pre-commit": "npm run lint:ts && npm run lint:css && npm run test",
     "prepare": "husky install"
   },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write",
+      "git add"
+    ]
+  },
   "devDependencies": {
     "@eslint/js": "^9.7.0",
     "@types/chai": "^5.0.0",
@@ -30,6 +37,7 @@
     "jsdom": "25.0.1",
     "jsdom-global": "3.0.2",
     "less": "^4.2.0",
+    "lint-staged": "^15.2.10",
     "mocha": "^10.7.3",
     "mocha-jsdom": "^2.0.0",
     "sinon": "^19.0.2",
