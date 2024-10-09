@@ -15,14 +15,6 @@ class MessagesController extends WSTransport {
     })
   }
 
-  // public async getMessages() {
-  //   // const data = this.send({
-  //   //   content: '0',
-  //   //   type: 'get old',
-  //   // })
-  //   // console.log(data)
-  // }
-
   public async getOldMessages() {
     this.send({
       content: '0',
