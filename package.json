@@ -12,12 +12,8 @@
     "lint:css": "stylelint '**/*.less'",
     "lint:ts": "eslint",
     "test": "mocha -r jsdom-global/register",
-    "pre-commit": "npm run lint:ts && npm run lint:css && npm run test"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run lint:ts && npm run lint:css && npm run test"
-    }
+    "pre-commit": "npm run lint:ts && npm run lint:css && npm run test",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@eslint/js": "^9.7.0",
