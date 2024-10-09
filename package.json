@@ -13,6 +13,7 @@
     "lint:ts": "eslint",
     "test": "mocha -r jsdom-global/register",
     "pre-commit": "npm run lint:ts && npm run lint:css && npm run test",
+    "postinstall": "husky install",
     "prepare": "husky install"
   },
   "devDependencies": {
