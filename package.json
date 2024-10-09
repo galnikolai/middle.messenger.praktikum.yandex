@@ -64,8 +64,7 @@
     "src/**/*.{js,jsx,tsx}": [
       "eslint . --ext .ts,.js",
       "stylelint '**/*.less",
-      "prettier --write",
-      "git add"
+      "prettier --write"
     ]
   }
 }
