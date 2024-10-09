@@ -1,4 +1,5 @@
 #!/usr/bin/env sh
-. "$(dirname "$0")/h"
+. "$(dirname -- "$0")/husky.sh"
+
 
 npm run lint:ts && npm run lint:css && npm run test
